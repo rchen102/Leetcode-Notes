@@ -1,4 +1,4 @@
-//Solution1: not meet the requirements
+//Solution1: no meet the requirements
 class Solution {
     public int findMin(int[] nums) {
         for(int i = 1 ; i < nums.length; i++) {
