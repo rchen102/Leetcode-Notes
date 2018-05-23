@@ -41,7 +41,7 @@ class Solution {
 }
 
 
-//Second solution: Kadane's Algorithm
+//Second solution: Kadane's Algorithm (dynamic programming)
 class Solution {
     public int maxProfit(int[] prices) {
         int maxCur = 0, maxSofar = 0;
