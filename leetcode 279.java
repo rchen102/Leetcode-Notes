@@ -1,3 +1,4 @@
+//Solution1: dynamic programing
 class Solution {
     public int numSquares(int n) {
         int[] res = new int[n + 1];
@@ -9,19 +10,11 @@ class Solution {
                 continue;
             }
             int min = i;
-            for(int j = 1; j <= findSquares(i); j++) {
+            for(int j = 1; j * j <= i; j++) {
                 min = Math.min(min, res[i - j * j] + 1);
             }
             res[i] = min;
         }
         return res[n];
-    }
-    
-    private int findSquares(int n) {
-        int i = 1;
-        while(i * i <= n) {
-            i++;
-        }
-        return i - 1;
     }
 }
