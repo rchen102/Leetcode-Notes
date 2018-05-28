@@ -14,3 +14,21 @@ class Solution {
         }
     }
 }
+
+//Solution2: Bit manipulation
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        int subsetNum = 1 << nums.length;
+        for(int i = 0; i < subsetNum; i++) {
+            List<Integer> subList = new ArrayList<>();
+            for(int j = 0; j < nums.length; j++) {
+                if(((i >> j) & 1) != 0)
+                    subList.add(nums[j]);
+            }
+            list.add(subList);
+        }
+        return list;
+    }
+    
+}
