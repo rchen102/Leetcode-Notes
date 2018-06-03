@@ -1,5 +1,3 @@
-//Solution1: iteratively
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -9,6 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+//Solutuon 1: iterative
 class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<Integer>();

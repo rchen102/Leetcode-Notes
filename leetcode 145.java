@@ -7,58 +7,63 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-
-//Solution 1: iterative
+//Solution1: iterative
 class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<Integer>();
+        if(root == null) return list;
         Stack<TreeNode> stack = new Stack<TreeNode>();
         
-        TreeNode cur = root;
-        while(cur != null || !stack.empty()) 
-        {
-            while(cur != null) 
-            {
-                stack.add(cur);
-                cur = cur.left;
-            }
+        TreeNode cur;
+        stack.push(root);
+        while(!stack.empty()) {
             cur = stack.pop();
-            list.add(cur.val);
-            cur = cur.right;
+            if(cur.left != null || cur.right != null) {
+                stack.push(cur);
+                if(cur.right != null) {
+                    stack.push(cur.right);
+                    cur.right = null;
+                }
+                if(cur.left != null) {
+                    stack.push(cur.left);
+                    cur.left = null;
+                }
+            }
+            else
+                list.add(cur.val);
         }
         return list;
     }
 }
 
-
-//Solution 2: recursive
+//Solution2: recursive
 class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<Integer>();
         if(root != null)
             helper(list, root);
         return list;
-        
     }
     
     private void helper(List<Integer> list, TreeNode cur) {
         if(cur.left != null)
             helper(list, cur.left);
-        list.add(cur.val);
         if(cur.right != null)
             helper(list, cur.right);
+        list.add(cur.val);
     }
 }
 
-//Solution 3: using hashmap
+//Solution3: HashMap
 class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<Integer>();
         Stack<TreeNode> stack = new Stack<TreeNode>();
         Map<TreeNode, Integer> map = new HashMap<>();
         
-        if(root == null) return list;
-      
+        if(root == null)
+            return list;
+        
         stack.push(root);
         map.put(root, 0);
         
@@ -69,20 +74,21 @@ class Solution {
                 map.remove(cur);
             }
             else {
+                stack.push(cur);
+                map.put(cur, 1);
+                
                 if(cur.right != null) {
                     stack.push(cur.right);
                     map.put(cur.right, 0);
                 }
-                
-                stack.push(cur);
-                map.put(cur, 1);
                 
                 if(cur.left != null) {
                     stack.push(cur.left);
                     map.put(cur.left, 0);
                 }
             }
-        }     
+        }
         return list;
     }
+    
 }
