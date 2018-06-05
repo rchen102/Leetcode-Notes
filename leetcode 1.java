@@ -1,3 +1,4 @@
+//Solution1: HashMap T: O(n) S: O(n)
 class Solution {
     public int[] twoSum(int[] nums, int target) {
         int[] list = new int[2];
