@@ -1,3 +1,4 @@
+//Solution1: using xor T: O(n) S: O(1)
 class Solution {
     public int singleNumber(int[] nums) {
         int result = nums[0];
@@ -10,7 +11,7 @@ class Solution {
 }
 
 
-//Solution 2
+//Solution2: using HashMap T: O(n) S: O(n)
 
 class Solution {
     public int singleNumber(int[] nums) {
