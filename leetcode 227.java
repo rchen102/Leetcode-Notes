@@ -1,3 +1,4 @@
+//Solution1: stack T: O(n) S: O(n)
 class Solution {
     public int calculate(String s) {
         if(s.length() == 0 || s == null) return 0;

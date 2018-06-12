@@ -1,4 +1,4 @@
-// Solution1: binary search
+// Solution1: binary search and dp T: O(nlogn) S: O(n)
 class Solution {
     public int lengthOfLIS(int[] nums) {
         int[] tails = new int[nums.length];
