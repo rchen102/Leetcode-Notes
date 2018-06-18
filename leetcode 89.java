@@ -13,6 +13,7 @@ class Solution {
     }
 }
 
+
 //Solution2: HashSet T:O(n*2^n) S: O(2^n)
 class Solution {
     public List<Integer> grayCode(int n) {
