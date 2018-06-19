@@ -1,4 +1,4 @@
-//Solution1: no meet the requirements
+//Solution1:  traverse T: O(n) S: O(1)
 class Solution {
     public int findMin(int[] nums) {
         for(int i = 1 ; i < nums.length; i++) {
@@ -9,7 +9,7 @@ class Solution {
     }
 }
 
-//Solution2: binary search
+//Solution2: binary search  T:O(logn)  S: O(1)
 class Solution {
     public int findMin(int[] nums) {
         int left = 0;
