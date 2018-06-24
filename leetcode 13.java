@@ -1,3 +1,4 @@
+//Solution1: T: O(n) S: O(n)
 class Solution {
     public int romanToInt(String s) {
         int[] res = new int[s.length()];
