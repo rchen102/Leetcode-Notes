@@ -1,4 +1,4 @@
-//Solution1 :
+//Solution1 : T: O(logn) S: O(1)
 class Solution {
     public int findPeakElement(int[] nums) {
         int left = 0, right = nums.length - 1;
@@ -14,12 +14,7 @@ class Solution {
     }
 }
 
-//Solution2:
-
-
-
-
-
+//Solution2: T: O(n) S: O(1)
 class Solution {
     public int findPeakElement(int[] nums) {
         int tmp = 0;
