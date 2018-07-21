@@ -66,18 +66,14 @@ class Solution {
                 map.remove(cur);
             }
             else {
-
-                
                 if(cur.right != null) {
                     stack.push(cur.right);
                     map.put(cur.right, 0);
                 }
-                
                 if(cur.left != null) {
                     stack.push(cur.left);
                     map.put(cur.left, 0);
                 }
-                
                 stack.push(cur);
                 map.put(cur, 1);
             }
