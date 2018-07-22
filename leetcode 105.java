@@ -8,7 +8,7 @@
  * }
  */
 
-//Own solution: recursive T: O(n^2)(worst) O(nlgn)(best) S: O(n)
+//Own solution: recursive T: O(n^2)(worst) O(nlgn)(best) S: O(n)(wosrt) (O(h))
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         int length = preorder.length;
@@ -30,6 +30,34 @@ class Solution {
         TreeNode root = new TreeNode(preorder[i]);
         root.left = helper(preorder, inorder, i+1, i+num-m, m, num-1);
         root.right = helper(preorder, inorder, i+num-m+1, j, num+1, n);
+        return root;
+    }
+}
+
+//Solution2: iterative using stack  T: O(n) S: O(n)(wosrt) (O(h))
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        int length = preorder.length;
+        if(length < 1) return null;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode root = new TreeNode(preorder[0]);
+        TreeNode cur = root;
+        
+        for(int i = 1, j = 0; i < length; i++) {
+            if(cur.val != inorder[j]) {
+                cur.left = new TreeNode(preorder[i]);
+                stack.push(cur);
+                cur = cur.left;
+            }
+            else {
+                j++;
+                while(!stack.isEmpty() && stack.peek().val == inorder[j]) {
+                    cur = stack.pop();
+                    j++;
+                }
+                cur = cur.right = new TreeNode(preorder[i]);
+            }
+        }
         return root;
     }
 }
