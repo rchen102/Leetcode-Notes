@@ -7,7 +7,6 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-
 //Solution1: recursive dfs  T: O(n) S: O(logn)
 class Solution {
     public boolean hasPathSum(TreeNode root, int sum) {

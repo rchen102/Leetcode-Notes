@@ -12,7 +12,6 @@ class Solution {
 
 
 //Solution2: using HashMap T: O(n) S: O(n)
-
 class Solution {
     public int singleNumber(int[] nums) {
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
