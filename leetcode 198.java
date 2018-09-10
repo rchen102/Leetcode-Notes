@@ -1,3 +1,4 @@
+//Own solution: dynamic programming T: O(n) S: O(n)
 class Solution {
     public int rob(int[] nums) {
         if(nums.length < 1)
@@ -12,7 +13,19 @@ class Solution {
         for(int i = 2; i < nums.length; i++) {
             res[i] = Math.max(res[i-1], res[i-2] + nums[i]);
         }
-        return res[nums.length - 1];
-        
+        return res[nums.length - 1];  
+    }
+}
+
+//More simplified version T: O(n) S: O(1)
+class Solution {
+    public int rob(int[] nums) {
+        int preMax = 0, curMax = 0;
+        for(int j = 0; j < nums.length; j++) {
+            int t = curMax;
+            curMax = Math.max(preMax+nums[j], curMax);
+            preMax = t;
+        }
+        return curMax;
     }
 }
