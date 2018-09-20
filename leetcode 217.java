@@ -1,3 +1,4 @@
+//Own solution: T: O(n) S: O(n)
 class Solution {
     public boolean containsDuplicate(int[] nums) {
         Map<Integer, Integer> map = new HashMap<>();
