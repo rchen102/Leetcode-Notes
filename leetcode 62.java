@@ -1,4 +1,4 @@
-//Solution1: T: O(mn) S: O(mn)
+//Solution1: DP T: O(mn) S: O(mn)
 class Solution {
     public int uniquePaths(int m, int n) {
         int[][] res = new int[m][n];
