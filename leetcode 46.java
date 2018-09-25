@@ -1,3 +1,4 @@
+//Solution1: backtracking T: O(n!) S: O(n)
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> list = new ArrayList<>();

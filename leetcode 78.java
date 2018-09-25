@@ -1,3 +1,4 @@
+//Solution1: backtracking T: O(2^n) S: O(n+n)
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> list = new ArrayList<>();
@@ -15,7 +16,7 @@ class Solution {
     }
 }
 
-//Solution2: Bit manipulation
+//Solution2: Bit manipulation T: O(2^n) S: O(n)
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> list = new ArrayList<>();

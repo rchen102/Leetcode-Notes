@@ -1,4 +1,4 @@
-//solution1: divide and conquer
+//Solution1: divide and conquer T: O(nlogn) S: O(logn)
 class Solution {
     public int maxProfit(int[] prices) {
         if(prices.length <= 1) 
@@ -41,7 +41,7 @@ class Solution {
 }
 
 
-//solution2: Kadane's Algorithm (dynamic programming)
+//Solution2: Kadane's Algorithm (dynamic programming) T: O(n) S: O(1)
 class Solution {
     public int maxProfit(int[] prices) {
         int maxCur = 0, maxSofar = 0;

@@ -1,4 +1,4 @@
-//Solution1: DP T:O(n^2 * m) S: O(n)
+//Solution1: DP T:O(n^2 * m) S: O(n)  m: the length of the dict
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
         boolean[] f = new boolean[s.length()+1];

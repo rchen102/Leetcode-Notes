@@ -1,3 +1,4 @@
+//Solution1: T: O(n^2) S: O(n)
 class Solution {
     public int numTrees(int n) {
         int[] res = new int[n+1];

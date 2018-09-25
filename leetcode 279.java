@@ -1,4 +1,4 @@
-//Solution1: dynamic programing
+//Solution1: dynamic programing T: O(n^(1.5)) S: O(n)
 class Solution {
     public int numSquares(int n) {
         int[] res = new int[n + 1];

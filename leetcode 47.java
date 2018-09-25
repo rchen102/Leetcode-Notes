@@ -1,3 +1,4 @@
+//Solution1: backtracking T: O(n!) S: O(n)
 class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> list = new ArrayList<>();
@@ -11,7 +12,7 @@ class Solution {
             list.add(new ArrayList<Integer>(tempList));
         else {
             for(int i = 0; i < nums.length; i++) {
-                if(used[i] || i > 0 && nums[i] == nums[i-1] && !used[i-1]) continue;
+                if(used[i] || (i > 0 && nums[i] == nums[i-1] && !used[i-1])) continue;
                 used[i] = true;
                 tempList.add(nums[i]);
                 backtrack(list, tempList, nums, used);
