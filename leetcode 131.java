@@ -1,3 +1,4 @@
+//Solution1: backtracking T: O(n*(2^n)) S: O(n)
 class Solution {
     public List<List<String>> partition(String s) {
         List<List<String>> list = new ArrayList<>();
