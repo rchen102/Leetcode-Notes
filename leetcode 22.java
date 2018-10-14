@@ -1,3 +1,4 @@
+//Solution1: T: O(2^(2n)) S: O(n)
 class Solution {
     public List<String> generateParenthesis(int n) {
         List<String> list = new ArrayList<String>();

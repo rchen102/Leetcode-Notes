@@ -1,3 +1,4 @@
+//Solution1: T: O(length(a or b)) S: O(1)
 class Solution {
     public String addBinary(String a, String b) {
         StringBuilder sb = new StringBuilder();
