@@ -4,7 +4,7 @@ class Solution {
         int result = nums[0];
         for(int i = 1; i < nums.length; i++) 
         {
-            result = result ^ nums[i]; // AxorA = 0; AxorB = BxorA ; AxorBxorA = B
+            result = result ^ nums[i]; // AxorA = 0; Axor0 = A; AxorB = BxorA; AxorBxorA = B
         }
         return result;
     }
@@ -14,18 +14,13 @@ class Solution {
 //Solution2: using HashMap T: O(n) S: O(n)
 class Solution {
     public int singleNumber(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-        for(int i : nums) {
-            if(map.containsKey(i)) {
-                map.put(i, 0);
-            }
-            else
-                map.put(i, 1);
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int num : nums) {
+            if(map.containsKey(num)) map.put(num, 0);
+            else map.put(num, 1);
         }
-        for(int i : nums) {
-            if(map.get(i) == 1)
-                return i;
-        }
-        return -1;
+        for(int num : nums)
+            if(map.get(num) == 1) return num;
+        return nums[0];
     }
 }
