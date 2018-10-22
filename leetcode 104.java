@@ -15,6 +15,7 @@ class Solution {
     }
 }
 
+
 //Solution2: iterative BFS T: O(n) S: O(n+1/2)
 class Solution {
     public int maxDepth(TreeNode root) {
