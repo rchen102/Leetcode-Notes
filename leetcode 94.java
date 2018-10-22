@@ -8,7 +8,24 @@
  * }
  */
 
-//Solution 1: iterative
+//Solution1: recursive T: O(n) S: O(n) worst
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new LinkedList<>();
+        help(root, res);
+        return res; 
+    }
+    
+    public void help(TreeNode root, List<Integer> res) {
+        if(root == null) return;
+        help(root.left, res);
+        res.add(root.val);
+        help(root.right, res);
+    }
+}
+
+
+//Solution2: iterative T： O(n) S: O(n) worst
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<Integer>();
@@ -30,27 +47,7 @@ class Solution {
     }
 }
 
-
-//Solution 2: recursive
-class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> list = new ArrayList<Integer>();
-        if(root != null)
-            helper(list, root);
-        return list;
-        
-    }
-    
-    private void helper(List<Integer> list, TreeNode cur) {
-        if(cur.left != null)
-            helper(list, cur.left);
-        list.add(cur.val);
-        if(cur.right != null)
-            helper(list, cur.right);
-    }
-}
-
-//Solution 3: using hashmap
+//Solution3: HashMap T: O(n) S: O(n) worst
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<Integer>();

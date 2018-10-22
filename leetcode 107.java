@@ -7,24 +7,24 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+//Solution1: O(n) S: O(n)
 class Solution {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        List<List<Integer>> list = new LinkedList<>();
-        Queue<TreeNode> queue = new LinkedList<TreeNode>();
-        
-        if(root == null)
-            return list;
+        List<List<Integer>> res = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        if(root == null) return res;
         queue.offer(root);
         while(!queue.isEmpty()) {
             int len = queue.size();
-            List<Integer> subList = new LinkedList<>();
+            List<Integer> tmp = new LinkedList<>();
             for(int i = 0; i < len; i++) {
-                if(queue.peek().left != null) queue.offer(queue.peek().left);
-                if(queue.peek().right != null) queue.offer(queue.peek().right);
-                subList.add(queue.poll().val);
+                TreeNode cur = queue.poll();
+                tmp.add(cur.val);
+                if(cur.left != null) queue.offer(cur.left);
+                if(cur.right != null) queue.offer(cur.right);
             }
-            list.add(0,subList);
+            res.add(0, tmp);
         }
-        return list;
+        return res;
     }
 }

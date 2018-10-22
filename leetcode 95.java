@@ -8,7 +8,7 @@
  * }
  */
 
-//Own solution: Dynamic Programming T(n) = C(n,2n)/(n+1) 
+//Solution1: Dynamic Programming T: O(Catalan(n)) 
 class Solution {
     public List<TreeNode> generateTrees(int n) {
         if(n == 0) return new ArrayList<>();

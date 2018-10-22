@@ -9,3 +9,14 @@ class Solution {
         return false;
     }
 }
+
+//Own solution2: T: O(n) S: O(n)
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for(int num : nums) {
+            if(!set.add(num)) return true;
+        }
+        return false;
+    }
+}

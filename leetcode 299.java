@@ -20,7 +20,7 @@ class Solution {
 }
 
 
-//Solution: own way  Using HashMap T: O(n) S: O(n)
+//Own way: using HashMap T: O(n) S: O(n)
 class Solution {
     public String getHint(String secret, String guess) {
         int length = secret.length();

@@ -7,62 +7,55 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//Solutuon 1: iterative
+//Solution1: recursive T: O(n) S: O(n) worst
 class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> list = new ArrayList<Integer>();
-        if(root == null) return list;
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        
-        TreeNode cur;
-        stack.push(root);
-        while(!stack.empty()) {
-            cur = stack.pop();
-            list.add(cur.val);
-            if(cur.right != null)
-                stack.push(cur.right);
-            if(cur.left != null)
-                stack.push(cur.left);
-        }
-        return list;     
-    }
-}
-
-//Solution 2: recursive
-class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> list = new ArrayList<Integer>();
-        if(root != null)
-            helper(list, root);
-        return list;
-        
+        List<Integer> res = new LinkedList<>();
+        helper(root, res);
+        return res;
     }
     
-    private void helper(List<Integer> list, TreeNode cur) {
-        list.add(cur.val);
-        if(cur.left != null)
-            helper(list, cur.left);
-        if(cur.right != null)
-            helper(list, cur.right);
+    public void helper(TreeNode root, List<Integer> res) {
+        if(root == null) return;
+        res.add(root.val);
+        helper(root.left, res);
+        helper(root.right, res);
     }
 }
 
-// Solution 3: HashMap
+
+//Solutuon2: iterative T: O(n) S: O(n)
 class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> res = new LinkedList<>();
+        if(root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while(!stack.isEmpty()) {
+            TreeNode cur = stack.pop();
+            res.add(cur.val);
+            if(cur.right != null) stack.push(cur.right);
+            if(cur.left != null) stack.push(cur.left);
+        }
+        return res;
+    }
+}
+
+
+// Solution 3: HashMap T: O(n) S: O(n)
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<Integer>();
         Stack<TreeNode> stack = new Stack<TreeNode>();
         Map<TreeNode, Integer> map = new HashMap<>();
         
-        if(root == null) return list;
-        
+        if(root == null) return res;
         stack.push(root);
         map.put(root, 0);
-        
-        while(!stack.empty()) {
+        while(!stack.isEmpty()) {
             TreeNode cur = stack.pop();
             if(map.get(cur) == 1) {
-                list.add(cur.val);
+                res.add(cur.val);
                 map.remove(cur);
             }
             else {
@@ -78,7 +71,6 @@ class Solution {
                 map.put(cur, 1);
             }
         }
-        return list;
-        
+        return res;
     }
 }

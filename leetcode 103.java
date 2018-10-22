@@ -8,7 +8,39 @@
  * }
  */
 
-//Solution1: dfs recursive
+//Solution1: bfs iterative T： O(n) S: O(n) (node: (n+1) / 2)
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {    
+        List<List<Integer>> res = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        if(root == null) return res;
+        int level = 0;
+        queue.offer(root);
+        while(!queue.isEmpty()) {
+            int len = queue.size();
+            List<Integer> tmp = new LinkedList<>();
+            for(int i = 0; i < len; i++) {
+                if(level % 2 == 0) {
+                    TreeNode cur = queue.poll();
+                    if(cur.left != null) queue.offer(cur.left);
+                    if(cur.right != null) queue.offer(cur.right);
+                    tmp.add(cur.val);
+                } else {
+                    TreeNode cur = queue.poll();
+                    if(cur.left != null) queue.offer(cur.left);
+                    if(cur.right != null) queue.offer(cur.right);
+                    tmp.add(0, cur.val);
+                }   
+            }
+            res.add(tmp);
+            level ++;
+        }
+        return res;
+    }
+}
+
+
+//Solution2: T： O(n) S: O(n)
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {    
         List<List<Integer>> list = new ArrayList<>();
@@ -38,33 +70,3 @@ class Solution {
     }
 }
 
-//Solution2: bfs iterative
-class Solution {
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {    
-        List<List<Integer>> list = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList<TreeNode>();
-        if(root == null)
-            return list;
-        
-        int flag = 0;
-        queue.offer(root);
-        while(!queue.isEmpty()) {
-            int len = queue.size();
-            List<Integer> subList = new ArrayList<>();
-            for(int i = 0; i < len; i++) {
-                if(flag % 2 == 0) {
-                    if(queue.peek().left != null) queue.offer(queue.peek().left);
-                    if(queue.peek().right != null) queue.offer(queue.peek().right);
-                    subList.add(queue.poll().val);
-                } else {
-                    if(queue.peek().left != null) queue.offer(queue.peek().left);
-                    if(queue.peek().right != null) queue.offer(queue.peek().right);
-                    subList.add(0,queue.poll().val);
-                }   
-            }
-            list.add(subList);
-            flag ++;
-        }
-        return list;
-    }
-}

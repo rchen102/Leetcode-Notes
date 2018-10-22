@@ -7,7 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//Solution1: recursive
+//Solution1: recursive DFS T: O(n) S: O(logn)
 class Solution {
     public boolean isSymmetric(TreeNode root) {
         if(root == null) return true;
@@ -15,16 +15,13 @@ class Solution {
     }
     
     private boolean isSymmetricHelper(TreeNode left, TreeNode right) {
-        if(left == null || right == null)
-            return left == right;
+        if(left == null || right == null) return left == right;
         if(left.val != right.val) return false;
         return isSymmetricHelper(left.left, right.right) && isSymmetricHelper(left.right, right.left);
     }
-    
-
 }
 
-//Solution2: iterative
+//Solution2: iterative BFS T: O(n) S: O(n+1/2)
 class Solution {
     public boolean isSymmetric(TreeNode root) {
         if(root == null) return true;
@@ -35,7 +32,6 @@ class Solution {
         while(!queue.isEmpty()) {
             TreeNode left = queue.poll();
             TreeNode right = queue.poll();
-            
             if(left == null && right == null) continue;
             if(left == null || right == null || left.val != right.val) return false;
             
@@ -46,7 +42,6 @@ class Solution {
         }
         return true;
     }
-
 }
 
 //Solution13: so complicated way
