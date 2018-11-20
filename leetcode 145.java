@@ -24,41 +24,13 @@ class Solution {
     }
 }
 
-
-//Solution2: iterative  T：O(n) S: O(n)
-class Solution {
-    public List<Integer> postorderTraversal(TreeNode root) {
-        List<Integer> res = new LinkedList<>();
-        Stack<TreeNode> stack = new Stack<>();
-        if(root == null) return res;
-        stack.push(root);
-        while(!stack.isEmpty()) {
-            TreeNode cur = stack.pop();
-            if(cur.left != null || cur.right != null) {
-                stack.push(cur);
-                if(cur.right != null) {
-                    stack.push(cur.right);
-                    cur.right = null;
-                }
-                if(cur.left != null) {
-                    stack.push(cur.left);
-                    cur.left = null;
-                }
-            }
-            else res.add(cur.val);
-        }
-        return res;
-    }
-}
-
-
-
-//Solution3: HashMap T: O(n) S: O(n)
+//Solution2: HashMap T: O(n) S: O(n)
 class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> res = new LinkedList<>();
         Stack<TreeNode> stack = new Stack<>();
         Map<TreeNode, Integer> map = new HashMap<>();
+
         if(root == null) return res;
         stack.push(root);
         map.put(root, 0);
@@ -80,6 +52,32 @@ class Solution {
                     map.put(cur.left, 0);
                 }
             }
+        }
+        return res;
+    }
+}
+
+//Solution3: iterative  T：O(n) S: O(n)
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> res = new LinkedList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        if(root == null) return res;
+        stack.push(root);
+        while(!stack.isEmpty()) {
+            TreeNode cur = stack.pop();
+            if(cur.left != null || cur.right != null) {
+                stack.push(cur);
+                if(cur.right != null) {
+                    stack.push(cur.right);
+                    cur.right = null;
+                }
+                if(cur.left != null) {
+                    stack.push(cur.left);
+                    cur.left = null;
+                }
+            }
+            else res.add(cur.val);
         }
         return res;
     }

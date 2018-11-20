@@ -55,7 +55,8 @@ class Solution {
                     cur = stack.pop();
                     j++;
                 }
-                cur = cur.right = new TreeNode(preorder[i]);
+                cur.right = new TreeNode(preorder[i]);
+                cur = cur.right
             }
         }
         return root;
