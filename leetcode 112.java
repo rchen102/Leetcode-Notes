@@ -19,28 +19,24 @@ class Solution {
 //Solution2: iterative dfs T: O(n) S: O(n/2)
 class Solution {
     public boolean hasPathSum(TreeNode root, int sum) {
-        if(root == null) return false;
-        
-        Stack<TreeNode> stack = new Stack<>();
-        Stack<Integer> num = new Stack<>();
-        stack.push(root);
-        num.push(root.val);
-        
-        while(!stack.isEmpty()) {
-            TreeNode cur = stack.pop();
-            int tmp = num.pop();
-            
-            if(cur.left == null && cur.right == null) {
-                if(tmp == sum) return true;
-            } 
-            else {
-                if(cur.right != null) {
-                    stack.push(cur.right);
-                    num.push(tmp + cur.right.val);
+        if (root == null) return false;
+        Stack<TreeNode> stackNode = new Stack<>();
+        Stack<Integer> stackSum = new Stack<>();
+        stackNode.push(root);
+        stackSum.push(root.val);
+        while (!stackNode.isEmpty()) {
+            TreeNode cur = stackNode.pop();
+            int tmp = stackSum.pop();
+            if (cur.left == null && cur.right == null) {
+                if (tmp == sum) return true;
+            } else {
+                if (cur.right != null) {
+                    stackNode.push(cur.right);
+                    stackSum.push(tmp + cur.right.val);
                 }
-                if(cur.left != null) {
-                    stack.push(cur.left);
-                    num.push(tmp + cur.left.val);
+                if (cur.left != null) {
+                    stackNode.push(cur.left);
+                    stackSum.push(tmp + cur.left.val);
                 }
             }
         }
