@@ -27,6 +27,7 @@ class Solution {
         while (!stackNode.isEmpty()) {
             TreeNode cur = stackNode.pop();
             int tmp = stackSum.pop();
+            // Check whether it is a leaf node
             if (cur.left == null && cur.right == null) {
                 if (tmp == sum) return true;
             } else {

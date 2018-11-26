@@ -13,12 +13,12 @@
 //S: O(n)
 class Solution {
     public int pathSum(TreeNode root, int sum) {
-        if(root == null) return 0;
+        if (root == null) return 0;
         return helper(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
     }
     
     private int helper(TreeNode root, int sum) {
-        if(root == null) return 0;
+        if (root == null) return 0;
         return (root.val == sum ? 1 : 0) + helper(root.left, sum - root.val) + helper(root.right, sum - root.val);
     }
 }
@@ -50,10 +50,8 @@ class Solution {
     public int pathSum(TreeNode root, int sum) {
         int res = 0;
         if(root == null) return res;
-        
         Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
-        
         while(!stack.isEmpty()) {
             TreeNode cur = stack.pop();
             res += helper(cur, sum);
@@ -61,13 +59,10 @@ class Solution {
             if(cur.right != null) stack.push(cur.right);
         }
         return res;
-  
     }
     
     private int helper(TreeNode root, int sum) {
         if(root == null) return 0;
-        
-        if(root.val == sum) return helper(root.left, sum - root.val) + helper(root.right, sum - root.val) + 1;
-        else return helper(root.left, sum - root.val) + helper(root.right, sum - root.val);
+        return (root.val == sum ? 1 : 0) + helper(root.left, sum - root.val) + helper(root.right, sum - root.val);
     }
 }
