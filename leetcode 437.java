@@ -31,15 +31,16 @@ class Solution {
         return helper(root, 0, sum, map);
     }
     
+    // Will return the number of path 
     private int helper(TreeNode root, int curSum, int sum, Map<Integer, Integer> map) {
         if(root == null) return 0;
-        
         curSum += root.val;
         int res = map.getOrDefault(curSum - sum, 0);
-        map.put(curSum, map.getOrDefault(curSum, 0) + 1);
         
+        map.put(curSum, map.getOrDefault(curSum, 0) + 1);
         res += helper(root.left, curSum, sum, map) + helper(root.right, curSum, sum, map);
         map.put(curSum, map.get(curSum) - 1);
+
         return res;
     }
 }
