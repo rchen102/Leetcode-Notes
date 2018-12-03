@@ -7,7 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//Solution1: O(n) S: O(n)
+//Solution1: O(n) S: O(n)(worst)
 class Solution {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         List<List<Integer>> res = new LinkedList<>();
