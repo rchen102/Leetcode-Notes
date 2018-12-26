@@ -7,45 +7,54 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//Solution1: recursive T: O(n) S: O(h) h = logn
+//Solution1: recursive dfs T: O(n) S: O(h) h = logn
 class Solution {
     public int sumNumbers(TreeNode root) {
-        return helper(root, 0);
+        if (root == null) return 0;
+        return helper(0, root);
     }
     
-    private int helper(TreeNode cur, int sum) {
-        if(cur == null) return 0;
-        if(cur.left == null && cur.right == null) return sum * 10 + cur.val;
-        return helper(cur.left, sum * 10 + cur.val) + helper(cur.right, sum * 10 + cur.val);
+    public int helper(int tmp, TreeNode root) {
+        tmp = tmp * 10 + root.val;
+        if (root.left == null && root.right == null) {
+            return tmp;
+        } else {
+            int sum = 0;
+            if (root.left != null) sum += helper(tmp, root.left);
+            if (root.right != null) sum += helper(tmp, root.right);
+            return sum;
+        }
     }
 }
 
-//Solution2: iterative T: O(n) S: O(n/2)
+//Solution2: iterative bfs double queue T: O(n) S: O(n/2)
 class Solution {
- 
     public int sumNumbers(TreeNode root) {
-        int sum = 0;
-        if(root == null) return sum;
-        Stack<TreeNode> nodeStack = new Stack<>();
-        Stack<String> strStack = new Stack<>();
+        if (root == null) return 0;
+        Queue<Integer> num = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        int res = 0;  // Store the final result
         
-        nodeStack.push(root);
-        strStack.push(String.valueOf(root.val));
-        while(!nodeStack.isEmpty()) {
-            TreeNode cur = nodeStack.pop();
-            String str = strStack.pop();
-            if(cur.left != null) {
-                nodeStack.push(cur.left);
-                strStack.push(str + String.valueOf(cur.left.val));
+        queue.offer(root);
+        num.offer(root.val);
+
+        while (!queue.isEmpty()) {
+            TreeNode cur = queue.poll();
+            int sum = num.poll();
+            if (cur.left != null) {
+                queue.offer(cur.left);
+                int tmp = sum * 10 + cur.left.val;
+                num.offer(tmp);
+            } 
+            if (cur.right != null) {
+                queue.offer(cur.right);
+                int tmp = sum * 10 + cur.right.val;
+                num.offer(tmp);
             }
-            if(cur.right != null) {
-                nodeStack.push(cur.right);
-                strStack.push(str + String.valueOf(cur.right.val));
-            }
-            if(cur.left == null && cur.right == null) {
-                sum += Integer.parseInt(str);
+            if (cur.left == null && cur.right == null) {
+                res += sum;
             }
         }
-        return sum;
+        return res;
     }
 }

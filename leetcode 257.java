@@ -7,7 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//Solution1: dfs T: O(nlogn) S: O(logn)
+//Solution1: dfs T: O(n) S: O(n)(worst)
 class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> list = new ArrayList<>();
