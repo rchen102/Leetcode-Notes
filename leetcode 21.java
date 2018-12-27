@@ -6,39 +6,30 @@
  *     ListNode(int x) { val = x; }
  * }
  */
+// Own solution: T: O(m+n) S: O(1)
 class Solution {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode head = new ListNode(0);
-        ListNode p = head;
-        while(l1 != null && l2 != null) {
-            if(l1.val <= l2.val) {
-                p.next = l1;
-                p = p.next;
-                l1 = l1.next;
-            }
-            else {
-                p.next = l2;
-                p = p.next;
-                l2 = l2.next;
-            }
+        ListNode dummy = new ListNode(0);
+        ListNode prev = dummy;
+        while (l1 != null && l2 != null) {
+            prev.next = l1.val <= l2.val ? l1 : l2;
+            if (l1.val <= l2.val) l1 = l1.next;
+            else l2 = l2.next;
+            prev = prev.next;
         }
-        if(l1 != null) p.next = l1;
-        else p.next = l2;
-        return head.next;          
+        prev.next = l1 != null ? l1 : l2;
+        return dummy.next;
     }
 }
 
-//Solution 2: recursive
+// Solution2: recursive T: O(m+n) S: O(m+n)
 class Solution {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        if(l1 == null) return l2;
-        if(l2 == null) return l1;
-        
-        if(l1.val < l2.val) {
+        if (l1 == null || l2 == null) return l1 != null ? l1 : l2;
+        if (l1.val <= l2.val) {
             l1.next = mergeTwoLists(l1.next, l2);
             return l1;
-        }
-        else {
+        } else {
             l2.next = mergeTwoLists(l1, l2.next);
             return l2;
         }

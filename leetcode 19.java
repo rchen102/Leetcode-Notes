@@ -9,19 +9,20 @@
 //Own solution: two pointers T: O(N) S: O(1)
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        if(head == null) return head;
-        ListNode pre = new ListNode(0);
-        pre.next = head;
-        head = pre;
-        ListNode p = pre;
-        for(int i = 0; i < n; i++) {
-            p = p.next;
+        if (head == null) return head;
+        ListNode dumb = new ListNode(0);
+        dumb.next = head;
+        
+        ListNode slow = dumb;
+        ListNode fast = dumb;
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
         }
-        while(p.next != null) {
-            p = p.next;
-            pre = pre.next;
+        while (fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
         }
-        pre.next = pre.next.next;
-        return head.next;
+        slow.next = slow.next.next;
+        return dumb.next;
     }
 }
