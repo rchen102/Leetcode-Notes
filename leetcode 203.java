@@ -10,25 +10,24 @@
 //Own solution: iterative T: O(n) S: O(1)
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
-        ListNode pre = new ListNode(0);
-        ListNode p = head, res = pre;
-        pre.next = head;
-        while(p != null) {
-            if(p.val == val) {
-                pre.next = p.next;
-            } else {
+        ListNode dummy = new ListNode(0);
+        ListNode pre = dummy;
+        while (head != null) {
+            if (head.val != val) {
+                pre.next = head;
+                head = head.next;
+                pre.next.next = null;
                 pre = pre.next;
-            }
-            p = p.next;
+            } else head = head.next;
         }
-        return res.next;
+        return dummy.next;
     }
 }
 
 //Solution1: recursive T: O(n) S: O(n)
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
-        if(head == null) return null;
+        if (head == null) return null;
         head.next = removeElements(head.next, val);
         return head.val == val ? head.next : head;
     }

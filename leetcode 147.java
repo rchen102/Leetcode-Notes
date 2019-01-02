@@ -6,26 +6,23 @@
  *     ListNode(int x) { val = x; }
  * }
  */
+// Solution1: T: O(n^2) S: O(1)
 class Solution {
     public ListNode insertionSortList(ListNode head) {
-
         ListNode sortedList = new ListNode(0);
-        sortedList.next = null;
-        
-        ListNode cur1 = head;
-        ListNode cur2 = sortedList;
-        while(cur1 != null) {
-            //find the position where cur1 should be
-            while( cur2.next != null && cur2.next.val < cur1.val) {
-                cur2 = cur2.next;
+        ListNode current = head; // The current node to be sorted
+        ListNode cur = sortedList;
+        while (current != null) {
+            // find the position where current node should be
+            while (cur.next != null && cur.next.val < current.val) {
+                cur = cur.next;
             }
-            
-            //insert cur1
-            ListNode tmp = cur2.next;
-            cur2.next = cur1;
-            cur1 = cur1.next; // the element to sort next
-            cur2.next.next = tmp;
-            cur2 = sortedList;
+            // insert current node
+            ListNode tmp = cur.next;
+            cur.next = current;
+            current = current.next; // next node to be sorted
+            cur.next.next = tmp;
+            cur = sortedList;
         }
         return sortedList.next;
     }

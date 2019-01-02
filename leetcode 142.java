@@ -9,23 +9,26 @@
  *     }
  * }
  */
+// Solution1: slow and fast pointer: T: O(n) S: O(1)
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        if(head == null || head.next == null || head.next.next == null) return null;
-        ListNode slow = head.next;
-        ListNode fast = head.next.next;
-        while(fast.next != null && fast.next.next != null & slow != fast) {
+        ListNode slow = head;
+        ListNode fast = head;
+        int flag = 0;
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-        }
-        if(slow == fast) {
-            fast = head;
-            while(slow != fast) {
-                slow = slow.next;
-                fast = fast.next;
+            if (slow == fast) {
+                flag = 1;
+                break;
             }
-            return slow;
         }
-        return null;  
+        if (flag == 0) return null;
+        fast = head;
+        while (slow != head) {
+            slow = slow.next;
+            head = head.next;
+        }
+        return slow;
     }
 }
