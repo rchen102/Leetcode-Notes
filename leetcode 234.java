@@ -10,16 +10,14 @@
 class Solution {
     public boolean isPalindrome(ListNode head) {
         ListNode slow = head, fast = head;
-        while(fast != null && fast.next != null) {
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
             fast = fast.next.next;
-            slow = slow.next;
         }
-        if(fast != null) { // odd nodes: let right half smaller 
-            slow = slow.next;
-        }
+        if(fast != null) slow = slow.next; // Odd number, move 1 more node
         slow = reverse(slow);
         fast = head;
-        while(slow != null) {
+        while(slow != null) { 
             if(slow.val != fast.val) return false;
             slow = slow.next;
             fast = fast.next;
@@ -28,13 +26,13 @@ class Solution {
     }
     
     private ListNode reverse(ListNode head) {
-        ListNode pre = null;
+        ListNode newhead = null;
         while(head != null) {
-            ListNode tmp = head.next;
-            head.next = pre;
-            pre = head;
-            head = tmp;
+            ListNode next = head.next;
+            head.next = newhead;
+            newhead = head;
+            head = next;
         }
-        return pre;
+        return newhead;
     }
 }
