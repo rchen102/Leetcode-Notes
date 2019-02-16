@@ -8,7 +8,7 @@ Dynamic programming is to breaking down an optimization problem into simpler sub
 - 重叠子问题
 - 一般只要该问题可以划分成规模更小的子问题，并且原问题的最优解中包含了子问题的最优解，则可以考虑用动态规划解决
 
-### 3 Step:
+### 3 Steps:
 
 - 核心：阶段的划分、状态的表示和存储表的设计
 - 划分子问题

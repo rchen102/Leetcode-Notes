@@ -7,7 +7,7 @@ The basic idea behind backtrack is DFS. Build a graph or tree from all the state
 当问题是要求满足某种性质（约束条件）的所有解或最优解时，往往使用回溯法。
 	
 
-### 3 step:
+### 3 Steps:
 
 Backtracking can be solved always as follows:
 ```
@@ -21,9 +21,14 @@ while (Problem is not solved)
 If none of the move works out, return false, NO SOLUTON.
 ```
 	
-### 4 Common examples
+### 4 Common examples 
+[Link](https://leetcode.com/problems/permutations/discuss/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning)?page=1)
 
-- Permutation
+- Permutations : 46; 47
+- Subset: 78;90
+- Combination sum: 39; 40;216
+
+#### Permutation
 
 ```java
 // Key: No duplicate
@@ -34,7 +39,7 @@ if(tempList.contains(nums[i])) continue;
 if(used[i] || i > 0 && nums[i] == nums[i-1] && !used[i - 1]) continue; 
 ```
 
-- Subset
+#### Subset
 
 ```java
 // Key: No duplicate
@@ -47,7 +52,7 @@ for(int i = start; i < nums.length; i++)
     if(i > start && nums[i] == nums[i-1]) continue;  // skip duplicates  
 ```		
 
-- Combination Sum
+#### Combination Sum
 
 ```java
 // Key: can reuse numbers

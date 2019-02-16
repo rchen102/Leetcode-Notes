@@ -6,7 +6,8 @@ if(tempList.contains(nums[i])) continue;
 ```
 
 47: 
-### Solution1: backtracking T: O(n!) S: O(n)
+### Solution1: backtracking 
+- T: O(n!) S: O(n)
 
 The key point is how to handle the duplicate elements, so we just sort the Array first. Next if we suppose the element of same value are different, like
 	
