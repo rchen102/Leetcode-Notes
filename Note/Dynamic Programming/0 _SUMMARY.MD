@@ -10,13 +10,13 @@ Dynamic programming is to breaking down an optimization problem into simpler sub
 
 ### 3 Step:
 
--（0）核心：阶段的划分、状态的表示和存储表的设计
--（1）划分子问题
--（2）给出最优解的递归式
--（3）找出临界情况，确定base case
--（3）按自底向上的方法计算出最优解的值
+- 核心：阶段的划分、状态的表示和存储表的设计
+- 划分子问题
+- 给出最优解的递归式
+- 找出临界情况，确定base case
+- 按自底向上的方法计算出最优解的值
 
-### 4 Tip
+### 4 Tips
 	
-- (1) Sometimes you do not need to store the whole DP table in memory, the last two values or the last two rows of the matrix will suffice.
-- (2) Memoization
+- Sometimes you do not need to store the whole DP table in memory, the last two values or the last two rows of the matrix will suffice.
+- Memoization
