@@ -1,8 +1,10 @@
-### Own solution: divide and conquer T: O(nlogn) S: O(logn)
+### Own solution: divide and conquer 
+- T: O(nlogn) S: O(logn)
 
 Attention: [] != null
 
-### Solution1: Kadane's Algorithm (dynamic programming) T: O(n) S: O(1)
+### Solution1: Kadane's Algorithm (dynamic programming) 
+- T: O(n) S: O(1)
 
 Introduction to the algorithm:
 This is used to solve the maximum subarray problem.
