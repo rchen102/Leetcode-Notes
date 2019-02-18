@@ -1,5 +1,5 @@
 ### Solution1: backtrack 
-- T： O(n! / (n-k)!k!)
+T： O(n! / (n-k)!k!)
 
 ```java
 backtrack(list, new ArrayList<Integer>(), n, k, 1);

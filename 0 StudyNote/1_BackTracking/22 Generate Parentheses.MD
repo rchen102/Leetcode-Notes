@@ -1,5 +1,5 @@
 ### Solution1: 
-- T: O(2^(2n)) S: O(n)
+T: O(2^(2n)) S: O(n)
 
 For this question, we can use the backtracking. 
 

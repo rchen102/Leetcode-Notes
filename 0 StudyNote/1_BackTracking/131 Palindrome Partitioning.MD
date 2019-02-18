@@ -1,5 +1,5 @@
 ### Solution1: backtracking 
-- T: O(n*(2^n)) S: O(n)
+T: O(n*(2^n)) S: O(n)
 
 For a string with length `n`, there will be `(n - 1)` intervals between chars.
 

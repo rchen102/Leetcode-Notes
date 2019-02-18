@@ -1,5 +1,5 @@
 ### Own solution: backtrack 
-- T: O(n^2) S: O(n)
+T: O(n^2) S: O(n)
 
 回溯法：走不通就掉头
 - 假定每个皇后单独占据一行，则可用数组`place[n]`标记一个解：存储第`n`行皇后的位置

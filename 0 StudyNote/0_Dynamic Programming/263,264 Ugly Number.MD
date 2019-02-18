@@ -1,6 +1,6 @@
 263:
 ### Solution1: 
-- T: O(logn) S: O(1)
+T: O(logn) S: O(1)
 
 Divide the number with 2 or 3 or 5 as long as it can be divided with no remainder, then check the number, if it equals 1, then return true
 ```
@@ -14,7 +14,7 @@ return num == 1;
 
 264:
 ### Solution1: dynamic programming 
-- T: O(n) S: O(n)
+T: O(n) S: O(n)
 
 We have an array `k` of first `n` ugly number. We only know, at the beginning, the first one, which is 1. 
 
