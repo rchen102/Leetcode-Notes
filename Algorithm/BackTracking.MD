@@ -1,14 +1,10 @@
-### 1 Define it
+## Basic
+**Def**: The basic idea behind backtrack is DFS. Build a graph or tree from all the state space of solution
 
-The basic idea behind backtrack is DFS. Build a graph or tree from all the state space of solution.
-
-### 2 When use it
-
-当问题是要求满足某种性质（约束条件）的所有解或最优解时，往往使用回溯法。
+适用：
+- 问题要求满足某种性质（约束条件）的所有解或最优解时，往往使用回溯法
 	
-
-### 3 Steps:
-
+## Steps
 Backtracking can be solved always as follows:
 ```
 Pick a starting point.
@@ -21,14 +17,14 @@ while (Problem is not solved)
 If none of the move works out, return false, NO SOLUTON.
 ```
 	
-### 4 Common examples 
+## Common examples 
 [Link](https://leetcode.com/problems/permutations/discuss/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning)?page=1)
 
 - Permutations : 46; 47
 - Subset: 78;90
 - Combination sum: 39; 40;216
 
-#### Permutation
+### Permutation
 
 ```java
 // Key: No duplicate
@@ -39,7 +35,7 @@ if(tempList.contains(nums[i])) continue;
 if(used[i] || i > 0 && nums[i] == nums[i-1] && !used[i - 1]) continue; 
 ```
 
-#### Subset
+### Subset
 
 ```java
 // Key: No duplicate
@@ -52,7 +48,7 @@ for(int i = start; i < nums.length; i++)
     if(i > start && nums[i] == nums[i-1]) continue;  // skip duplicates  
 ```		
 
-#### Combination Sum
+### Combination Sum
 
 ```java
 // Key: can reuse numbers

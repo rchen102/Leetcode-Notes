@@ -8,7 +8,7 @@ For BST:
 
 ### Questions:
 
-#### Traversal: 
+#### 1 Traversal: 
 preorder, inorder, postorder:
 - 3 ways: recursive iterative hashmap  
 
@@ -19,13 +19,13 @@ level order(bottom-top, zigzag):
 question with help of traversal: 	
 - Next Right Pointers, path Sum, Sum Root to Leaf, Binary Tree Path
 	
-#### Check and Compare:
+#### 2 Check and Compare:
 Same tree, Symmetric tree, balanced tree
 
-#### Deep:
+#### 3 Deep:
 Max deep, Min deep
 
-#### Construct tree:
+#### 4 Construct tree:
 From inorder with pre or post
 
 Invert tree
@@ -34,6 +34,6 @@ Construct from a sorted array
 
 flatten the tree to linked-list
 
-#### BST:
+#### 5 BST:
 kth smallest 
 	
