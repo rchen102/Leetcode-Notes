@@ -6,4 +6,3 @@ class Solution:
                 return [dic[target - nums[i]], i]
             else:
                 dic[nums[i]] = i
-        
