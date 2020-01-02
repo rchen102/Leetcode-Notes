@@ -1,28 +1,35 @@
 //Solution1: Two pointers T: O(n^2) S: O(n)
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        Arrays.sort(nums);
         List<List<Integer>> res = new ArrayList<>();
-        for(int i = 0; i < nums.length - 2; i++) {
-            if(i == 0 || (i > 0 && nums[i] != nums[i-1])) {
-                twoSum(res, i, nums);
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            if (i != 0 && nums[i] == nums[i-1]) continue;
+            List<List<Integer>> tmp = twoSum(nums, i);
+            if (tmp.size() != 0) res.addAll(tmp);
+        }
+        return res; 
+    }
+    
+    public List<List<Integer>> twoSum(int[] nums, int idx) {
+        int left = idx + 1;
+        int right = nums.length - 1;
+        List<List<Integer>> res = new ArrayList<>();
+        
+        int target = -nums[idx];
+        int sum;
+        while (left < right) {
+            sum = nums[left] + nums[right];
+            if (sum > target) right--;
+            else if (sum < target) left++;
+            else {
+                res.add(Arrays.asList(nums[idx], nums[left], nums[right]));
+                while (right > left && nums[right-1] == nums[right]) right--;
+                while (left < right && nums[left+1] == nums[left]) left++;
+                right--;
+                left++;
             }
         }
         return res;
-    }
-    
-    public void twoSum(List<List<Integer>> res, int index, int[] nums) {
-        int lo = index + 1, hi = nums.length - 1, target = 0 - nums[index];
-        while(lo < hi) {
-            if(nums[lo] + nums[hi] == target) {
-                res.add(Arrays.asList(nums[index], nums[lo], nums[hi]));
-                while(lo < hi && nums[lo] == nums[lo+1]) lo++;
-                while(lo < hi && nums[hi] == nums[hi-1]) hi--;
-                lo++;
-                hi--;
-            }
-            else if(nums[lo] + nums[hi] < target) lo++;
-            else hi--;
-        }
     }
 }

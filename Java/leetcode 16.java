@@ -1,30 +1,31 @@
-//Solution1:  Two pointers T: O(n^2) S: O(n)
+/* Solution1: Two pointers 
+ * T: O(n^2) S: O(1)
+ */
 class Solution {
-    int closest;
     public int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums);
-        int clo = nums[0]+nums[1]+nums[2];
-        for(int i = 0; i < nums.length - 2; i++) {
-            if(i == 0 || (i > 0 && nums[i] != nums[i-1])) {
-                int tmp = twoSum(i, nums, target);
-                if(Math.abs(tmp - target) < Math.abs(clo - target)) clo = tmp;
-            }
+        int res = nums[0] + nums[1] + nums[2];
+        for (int i = 0; i < nums.length-2; i++) {
+            int twoSum = twoSumClosest(nums, i, target-nums[i]);
+            int sum = nums[i] + twoSum;
+            if (Math.abs(sum - target) < Math.abs(res - target)) res = sum;
         }
-        return clo;
+        return res;
     }
     
-    public int twoSum(int index, int[] nums, int target) {
-        int lo = index + 1, hi = nums.length - 1;
-        int close = nums[lo] + nums[hi] + nums[index];
-        while(lo < hi) {
-            int sum = nums[lo] + nums[hi] + nums[index];
-            if(sum == target) {
-                return target;
+    public int twoSumClosest(int[] nums, int idx, int target) {
+        int left = idx + 1;
+        int right = nums.length - 1;
+        int res = nums[left] + nums[right];
+        while (left < right) {
+            int sum = nums[left] + nums[right];
+            if (Math.abs(sum - target) < Math.abs(res - target)) {
+                res = sum;
             }
-            else if(sum < target) lo++;
-            else hi--;
-            if(Math.abs(sum - target) < Math.abs(close - target)) close = sum;
+            if (sum > target) right--;
+            else if (sum < target) left++;
+            else return sum;
         }
-        return close;
+        return res;
     }
 }
