@@ -1,20 +1,24 @@
+/* Solution: backtrace
+ *
+ */
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> list = new ArrayList<>();
+        List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(candidates);
-        backtrack(list, new ArrayList<>(), candidates, target, 0);
-        return list;
+        backtrace(res, new ArrayList<>(), candidates, 0, target);
+        return res;
     }
     
-    private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] candidates, int remain, int start) {
-        if(remain == 0)
-            list.add(new ArrayList<>(tempList));
-        for(int i = start; i < candidates.length; i++) {
-            if(i > start && candidates[i] == candidates[i - 1]) continue;
-            if(remain - candidates[i] < 0) break;
-            tempList.add(candidates[i]);
-            backtrack(list, tempList, candidates, remain - candidates[i], i + 1);
-            tempList.remove(tempList.size() - 1);
+    private void backtrace(List<List<Integer>> res, List<Integer> tmpList, int[] candidates, int start, int target) {
+        if (target == 0) res.add(new ArrayList<>(tmpList));
+        else {
+            for (int i = start; i < candidates.length; i++) {
+                if (i != start && candidates[i] == candidates[i-1]) continue;
+                if (target - candidates[i] < 0) break;
+                tmpList.add(candidates[i]);
+                backtrace(res, tmpList, candidates, i+1, target - candidates[i]);
+                tmpList.remove(tmpList.size() - 1);
+            }
         }
     }
 }

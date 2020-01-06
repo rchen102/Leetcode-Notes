@@ -1,10 +1,12 @@
-// Own solution: T: O(nlogn) S: O(1)
+/* Solution: like greedy
+ * T: O(nlogn) S: O(1)
+ */
 class Solution {
     public int arrayPairSum(int[] nums) {
         Arrays.sort(nums);
         int sum = 0;
-        for (int i = 0; i < nums.length; i = i + 2) {
-            sum += nums[i];
+        for (int i = 0; i < nums.length; i++) {
+            if (i % 2 == 0) sum += nums[i];
         }
         return sum;
     }
