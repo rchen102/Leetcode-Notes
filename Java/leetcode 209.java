@@ -1,17 +1,23 @@
-//Solution1: Two pointers T: O(n) S: O(1)
+/* Solution1: Sliding Window
+ * T: O(n) S: O(1)
+ */
 class Solution {
     public int minSubArrayLen(int s, int[] nums) {
-        if(nums == null || nums.length == 0) return 0;
-        int i = 0, j = 0, sum = 0, min = Integer.MAX_VALUE;
-        
-        while(j < nums.length) {
-            sum += nums[j++];
-            while(sum >= s) {
-                min = Math.min(min, j - i);
-                sum -= nums[i++];
+        if (nums == null || nums.length == 0) return 0;
+        int left = 0, right = 0; 
+        int sum = 0;
+        int res = Integer.MAX_VALUE;
+        while(right < nums.length) {
+            sum += nums[right];
+            while (sum >= s) {
+                res = Math.min(res, right - left + 1);
+                sum -= nums[left];
+                left++;
             }
+            right++;
         }
-        return min == Integer.MAX_VALUE ? 0 : min;
+        if (res > nums.length) return 0;
+        return res;
     }
 }
 
