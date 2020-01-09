@@ -3,16 +3,17 @@
  */
 class Solution {
     public void moveZeroes(int[] nums) {
-        int ptr = 0;  // idx for new Array
+        if (nums == null || nums.length == 0) return;
+        int cur = 0;
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] != 0) {
-                nums[ptr] = nums[i];
-                ptr++;
+                nums[cur] = nums[i];
+                cur++;
             }
         }
-        while (ptr < nums.length) {
-            nums[ptr] = 0;
-            ptr++;
+        while (cur < nums.length) {
+            nums[cur] = 0;
+            cur++;
         }
     }
 }

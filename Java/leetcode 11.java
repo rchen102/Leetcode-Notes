@@ -3,21 +3,20 @@
  */
 class Solution {
     public int maxArea(int[] height) {
-        int left = 0, right = height.length-1;
-        int max = -1;
+        int res = 0;
+        if (height == null || height.length == 0) return res;
+        int left = 0, right = height.length - 1;
         while (left < right) {
-            int tall = Math.min(height[left], height[right]);
-            int water = tall * (right - left);
-            max = water > max ? water : max;
-            
+            int area = Math.min(height[left], height[right]) * (right - left);
+            res = Math.max(res, area);
             if (height[left] < height[right]) left++;
-            else if (height[right] < height[left]) right--;
+            else if (height[left] > height[right]) right--;
             else {
                 left++;
                 right--;
             }
         }
-        return max;
+        return res;
     }
 }
 

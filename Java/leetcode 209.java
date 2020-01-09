@@ -8,13 +8,15 @@ class Solution {
         int sum = 0;
         int res = Integer.MAX_VALUE;
         while(right < nums.length) {
-            sum += nums[right];
+            if (sum < s) {
+                sum += nums[right];
+                right++;
+            }
             while (sum >= s) {
-                res = Math.min(res, right - left + 1);
+                res = Math.min(res, right - left);
                 sum -= nums[left];
                 left++;
             }
-            right++;
         }
         if (res > nums.length) return 0;
         return res;
