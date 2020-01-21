@@ -1,4 +1,5 @@
-/* Solution1: Two pointers
+/** 
+ * Solution1: Two pointers
  * T: O(n) S: O(1)
  */
 class Solution {

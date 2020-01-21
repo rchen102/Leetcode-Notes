@@ -4,22 +4,20 @@
 class Solution {
     public int minSubArrayLen(int s, int[] nums) {
         if (nums == null || nums.length == 0) return 0;
-        int left = 0, right = 0; 
-        int sum = 0;
-        int res = Integer.MAX_VALUE;
-        while(right < nums.length) {
-            if (sum < s) {
-                sum += nums[right];
-                right++;
-            }
-            while (sum >= s) {
-                res = Math.min(res, right - left);
-                sum -= nums[left];
+        int minLen = Integer.MAX_VALUE;
+        int left = 0, right = 0;
+        int tmpSum = 0;
+        while (right < nums.length) {
+            tmpSum += nums[right];
+            while (tmpSum >= s) {
+                minLen = Math.min(minLen, right - left + 1);
+                tmpSum -= nums[left];
                 left++;
             }
+            right++;
         }
-        if (res > nums.length) return 0;
-        return res;
+        if (minLen == Integer.MAX_VALUE) return 0;
+        return minLen;
     }
 }
 
