@@ -6,9 +6,12 @@
  *     ListNode(int x) { val = x; }
  * }
  */
-// Solution1: partion and merge 
-// T: O(nklogk) (n: average number of nodes in a list, k: number of lists) 
-// S: O(logk)
+
+/**
+ * Solution1: divide and conquer
+ * T: O(nklogk) (n: average number of nodes in a list, k: number of lists) 
+ * S: O(logk)
+ */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         if (lists.length == 0) return null;
@@ -35,8 +38,10 @@ class Solution {
     }
 }
 
-
-// Solution2: PriorityQueue T: O()
+/**
+ * Solution2: Heap (PriorityQueue)
+ *
+ */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         if (lists == null || lists.length == 0) return null;
