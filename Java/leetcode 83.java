@@ -9,21 +9,25 @@
 // Solution1: iterative T: O(n) S: O(1)
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
-        if (head == null || head.next == null) return head;  
-        ListNode dummy = new ListNode(0);
+        if (head == null) return head;
+        ListNode dummy = new ListNode(-1);
         dummy.next = head;
-        while (head.next != null) {
-            if (head.val == head.next.val) {
-                head.next = head.next.next;
-            } else head = head.next;
+        ListNode cur = head;
+        while (cur.next != null) {
+            if (cur.val == cur.next.val) cur.next = cur.next.next;
+            else cur = cur.next;
         }
         return dummy.next;
     }
 }
 
 // Solution2: recursive T: O(n) S: O(n)
-public ListNode deleteDuplicates(ListNode head) {
-        if(head == null || head.next == null) return head;
-        head.next = deleteDuplicates(head.next);
-        return head.val == head.next.val ? head.next : head;
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode tail = deleteDuplicates(head.next);
+        if (head.val == tail.val) head.next = tail.next;
+        else head.next = tail;
+        return head;
+    }
 }

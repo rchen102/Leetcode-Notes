@@ -21,17 +21,16 @@ class Solution {
 // Solution2: iterative T: O(n) S: O(1)
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        if (head == null || head.next == null) return head;
-        ListNode dummy = new ListNode(0);
+        ListNode dummy = new ListNode(-1);
         dummy.next = head;
         ListNode prev = dummy;
-        while(head != null && head.next != null) {
-            ListNode newHead = head.next;
-            head = head.next.next; // update head
-            newHead.next = prev.next;  // swap 
-            prev.next = newHead;  //connect previous node
-            prev = newHead.next; // update prev
-            prev.next = head;
+        ListNode cur = head;
+        while (cur != null && cur.next != null) {
+            prev.next = cur.next;      // cur.next is new head, the one to be swapped 
+            cur.next = cur.next.next;  // connect to next candidate for cur
+            prev.next.next = cur;      // complete swap
+            prev = cur;                // update prev and cur
+            cur = cur.next; 
         }
         return dummy.next;
     }

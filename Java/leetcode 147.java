@@ -6,24 +6,47 @@
  *     ListNode(int x) { val = x; }
  * }
  */
-// Solution1: T: O(n^2) S: O(1)
+
+// Solution1: recursive
+// T: O(n^2) S: O(n)
 class Solution {
     public ListNode insertionSortList(ListNode head) {
-        ListNode sortedList = new ListNode(0);
-        ListNode current = head; // The current node to be sorted
-        ListNode cur = sortedList;
-        while (current != null) {
-            // find the position where current node should be
-            while (cur.next != null && cur.next.val < current.val) {
-                cur = cur.next;
-            }
-            // insert current node
-            ListNode tmp = cur.next;
-            cur.next = current;
-            current = current.next; // next node to be sorted
-            cur.next.next = tmp;
-            cur = sortedList;
+        if (head == null || head.next == null) return head;
+        ListNode tail = insertionSortList(head.next);
+        ListNode dummy = new ListNode(-1);
+        dummy.next = tail;
+        ListNode prev = dummy;
+        while (prev.next != null) {
+            if (prev.next.val > head.val) break;
+            else prev = prev.next;
         }
-        return sortedList.next;
+        head.next = prev.next;
+        prev.next = head;
+        return dummy.next;
+    }
+}
+
+// Solution2: iterative T: O(n^2) S: O(1)
+class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        ListNode dummy = new ListNode(-1);
+        ListNode cur;
+        while (head != null) {
+            cur = head.next;
+            head.next = null;
+            insert(dummy, head);
+            head = cur;
+        }
+        return dummy.next;
+    }
+    
+    public void insert(ListNode dummy, ListNode tmp) {
+        ListNode prev = dummy;
+        while (prev.next != null) {
+            if (prev.next.val > tmp.val) break;
+            else prev = prev.next;
+        }
+        tmp.next = prev.next;
+        prev.next = tmp;
     }
 }
