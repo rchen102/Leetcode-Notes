@@ -10,29 +10,27 @@
 // Solution1: using recursive T: O(n^2) S: O(n)
 class Solution {
     public ListNode reverseList(ListNode head) {
-        if (head == null) return null;
-        if (head.next == null) return head;
-        ListNode newHead = reverseList(head.next);
-        ListNode cur = newHead;
-        while (cur.next != null) {
-            cur = cur.next;
-        }
-        cur.next = head;
+        if (head == null || head.next == null) return head;
+        ListNode tail = reverseList(head.next);
+        if (tail == null) return head;
+        ListNode prev = tail;
+        while (prev.next != null) prev = prev.next;
+        prev.next = head;
         head.next = null;
-        return newHead;
+        return tail;
     }
 }
 
-// Solution2: using iterative T: O(n) S: O(1)
+// Solution2: iterative T: O(n) S: O(1)
 class Solution {
     public ListNode reverseList(ListNode head) {
-        ListNode newhead = null;
-        while(head != null) {
-            ListNode next = head.next;
-            head.next = newhead;
-            newhead = head;
-            head = next;
+        ListNode dummy = new ListNode(-1);
+        while (head != null) {
+            ListNode tmp = dummy.next;
+            dummy.next = head;
+            head = head.next;  // points to next node
+            dummy.next.next = tmp;
         }
-        return newhead;
+        return dummy.next;
     }
 }
