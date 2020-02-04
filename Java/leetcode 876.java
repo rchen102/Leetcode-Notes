@@ -6,12 +6,13 @@
  *     ListNode(int x) { val = x; }
  * }
  */
-// Own solution: fast & slow T: O(n) S: O(1)
+// Solution: slow and fast pointers 
+// T: O(n) S: O(1)
 class Solution {
     public ListNode middleNode(ListNode head) {
-        ListNode slow = head;
-        ListNode fast = head;
-        while(fast != null && fast.next != null) {
+        if (head == null) return head;
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }

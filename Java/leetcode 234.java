@@ -6,33 +6,39 @@
  *     ListNode(int x) { val = x; }
  * }
  */
-//Solution1: 2 pointers T: O(n) S: O(1)
+// Solution1: slow and fast pointers 
+// T: O(n) S: O(1)
 class Solution {
     public boolean isPalindrome(ListNode head) {
+        if (head == null) return true;
         ListNode slow = head, fast = head;
+        // Find middle node
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
-        if(fast != null) slow = slow.next; // Odd number, move 1 more node
-        slow = reverse(slow);
-        fast = head;
-        while(slow != null) { 
-            if(slow.val != fast.val) return false;
-            slow = slow.next;
-            fast = fast.next;
-        }
+        ListNode newHead1, newHead2;
+        newHead1 = head;
+        if (fast == null) newHead2 = slow;   // even number
+        else newHead2 = slow.next;           // odd number
+        
+        newHead2 = reverse(newHead2);
+        while (newHead2 != null) {
+            if (newHead1.val != newHead2.val) return false;
+            newHead1 = newHead1.next;
+            newHead2 = newHead2.next;
+        } 
         return true;
     }
     
-    private ListNode reverse(ListNode head) {
-        ListNode newhead = null;
-        while(head != null) {
-            ListNode next = head.next;
-            head.next = newhead;
-            newhead = head;
-            head = next;
+    public ListNode reverse(ListNode head) {
+        ListNode dummy = new ListNode(-1);
+        while (head != null) {
+            ListNode tmp = head.next;
+            head.next = dummy.next;
+            dummy.next = head;
+            head = tmp;
         }
-        return newhead;
+        return dummy.next;
     }
 }
