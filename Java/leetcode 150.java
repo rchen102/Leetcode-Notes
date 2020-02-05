@@ -1,10 +1,11 @@
-//Solution1; stack T: O(n) S: O(n)
+// Solution1; stack 
+// T: O(n) S: O(n)
 class Solution {
     public int evalRPN(String[] tokens) {
         Stack<Integer> stack = new Stack<>();
         for(String str : tokens) {
             switch(str) {
-                //If str is an operator, then pop the top 2 numbers to do calculate, then push back
+                //If str is an operator, pop the top 2 operands to do calculation, then push back
                 case "+": 
                     stack.push(stack.pop() + stack.pop());
                     break;
