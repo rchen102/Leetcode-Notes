@@ -35,7 +35,7 @@ class Solution {
 
 /**
  * Solution2: recursive
- * T: O(m+n) S: O(max(m,n)) (consider stack space)
+ * T: O(m+n) S: O(m+n) (consider stack space)
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {

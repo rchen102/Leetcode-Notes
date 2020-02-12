@@ -10,7 +10,6 @@
 // T: O(n) S: O(1)
 class Solution {
     public ListNode middleNode(ListNode head) {
-        if (head == null) return head;
         ListNode slow = head, fast = head;
         while (fast != null && fast.next != null) {
             slow = slow.next;

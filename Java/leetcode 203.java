@@ -29,16 +29,16 @@ class Solution {
             if (head.val != val) {
                 prev.next = head;
                 prev = head;
-                head = head.next;
-                prev.next = null;
             }
-            else head = head.next;
+            head = head.next;
         }
+        prev.next = null;  // 之前先不清理，最后清理尾巴
         return dummy.next;
     }
 }
 
-// Another way to cut the next
+
+// 另一种清理尾巴的方法
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
         ListNode dummy = new ListNode(-1);
@@ -47,11 +47,14 @@ class Solution {
             if (head.val != val) {
                 prev.next = head;
                 prev = head;
+                head = head.next;
+                prev.next = null;  // 每次连接的时候就清理尾巴
             }
-            head = head.next;
+            else head = head.next;
         }
-        prev.next = null;
         return dummy.next;
     }
 }
+
+
 

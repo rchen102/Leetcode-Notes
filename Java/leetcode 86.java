@@ -42,7 +42,7 @@ class Solution {
                 p.next = head;
                 head = head.next;
                 p = p.next;
-                p.next = null;
+                p.next = null;  // 不要忘记清理干净尾巴
             } else {
                 q.next = head;
                 head = head.next;
