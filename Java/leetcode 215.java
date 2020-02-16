@@ -1,12 +1,41 @@
-//Solution1: sort T: O(nlogn) S: O(1)
+// Solution1: Divide and Conquer 
+// T:O(n)(best) O(N^2)(worst) S: O(1)
 class Solution {
     public int findKthLargest(int[] nums, int k) {
-        Arrays.sort(nums);
-        return nums[nums.length - k];
+        if (nums == null || nums.length == 0) return 0;
+        return helper(nums, 0, nums.length - 1, k);
+    }
+    
+    private int helper(int[] nums, int lo, int hi, int k) {
+        // partition 
+        int q = partition(nums, lo, hi);
+        if (q - lo + 1 == k) return nums[q];
+        else if (q + 1 - lo < k) {
+            return helper(nums, q+1, hi, k - (q - lo + 1));
+        }
+        else return helper(nums, lo, q-1, k);
+    }
+    
+    private int partition(int[] nums, int lo, int hi) {
+        int i = lo;
+        for (int j = lo; j < hi; j++) {
+            if (nums[j] > nums[hi]) {
+                swap(nums,i,j);
+                i++;
+            }
+        }
+        swap(nums,i,hi);
+        return i;
+    }
+    
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
     }
 }
 
-//Solution2: priorityqueue T: O(nlogk) S: O(k)
+// Solution2: priorityqueue T: O(nlogk) S: O(k)
 class Solution {
     public int findKthLargest(int[] nums, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
@@ -17,49 +46,5 @@ class Solution {
             }
         }
         return pq.peek();
-    }
-}
-
-
-//Solution3: T:O(n)(best) O(N^2)(worst) S: O(1)
-class Solution {
-    public int findKthLargest(int[] nums, int k) {
-        k = nums.length - k;
-        int low = 0;
-        int high = nums.length - 1;
-        
-        while(low < high) {
-            int j = partition(nums, low, high);
-            if(j < k)
-                low = j + 1;
-            else if(j > k)
-                high = j - 1;
-            else
-                break;
-        }
-        return nums[k];
-    }
-    
-    private int partition(int[] nums, int low, int high) {
-        int i = low + 1;
-        int j = high;
-        
-        while(true) {
-            while(i < high && nums[i] <= nums[low])
-                i++;
-            while(j > low && nums[j] >= nums[low])
-                j--;
-            if(i >= j)
-                break;
-            exch(nums, i, j);
-        }
-        exch(nums, low, j);
-        return j;
-    }
-    
-    private void exch(int[] nums, int i, int j) {
-        int tmp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = tmp;
     }
 }
