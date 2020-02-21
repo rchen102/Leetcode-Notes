@@ -11,16 +11,19 @@ class Solution {
 }
 
 
-//Solution2: using HashMap T: O(n) S: O(n)
+// Solution2: HashMap 
+// T: O(n) S: O(n)
 class Solution {
     public int singleNumber(int[] nums) {
+        if (nums == null || nums.length == 0) return -1;
         Map<Integer, Integer> map = new HashMap<>();
-        for(int num : nums) {
-            if(map.containsKey(num)) map.put(num, 0);
+        for (int num : nums) {
+            if (map.containsKey(num)) map.put(num, 0);
             else map.put(num, 1);
         }
-        for(int num : nums)
-            if(map.get(num) == 1) return num;
-        return nums[0];
+        for (int num : nums) {
+            if (map.get(num) == 1) return num;
+        }
+        return -1;
     }
 }

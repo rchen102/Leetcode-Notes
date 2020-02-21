@@ -1,4 +1,5 @@
-//Solution1: HashSet T: O(n) S: O(n)
+// Solution1: HashSet 
+// T: O(n) S: O(n)
 class Solution {
     public List<String> findRepeatedDnaSequences(String s) {
         Set<String> set = new HashSet<>();
