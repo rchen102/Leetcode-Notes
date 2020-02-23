@@ -1,21 +1,24 @@
-//Own solution: T: O(n) S: O(n)
+// Solution1: HashSet
+// T: O(n) S: O(n)
 class Solution {
     public boolean containsDuplicate(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for(int num : nums) {
-            if(map.containsKey(num)) return true;
-            else map.put(num,1);
+        if (nums == null || nums.length == 0) return false;
+        Set<Integer> set = new HashSet<>();
+        for (int n : nums) {
+            if (!set.add(n)) return true;
         }
         return false;
     }
 }
 
-//Own solution2: T: O(n) S: O(n)
+// Solution2: Sort
+// T: O(nlog) S: O(1)
 class Solution {
     public boolean containsDuplicate(int[] nums) {
-        Set<Integer> set = new HashSet<>();
-        for(int num : nums) {
-            if(!set.add(num)) return true;
+        if (nums == null || nums.length == 0) return false;
+        Arrays.sort(nums);
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i-1]) return true;
         }
         return false;
     }
