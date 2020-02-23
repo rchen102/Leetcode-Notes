@@ -1,3 +1,26 @@
+// Solution1: HashMap 
+// T: O(n) S: O(1) (only 256 character)
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        if (s == null || s == null) return false;
+        if (s.length() != t.length()) return false;
+        Map<Character, Character> map = new HashMap<>();
+        Map<Character, Character> revMap = new HashMap<>();
+        char[] sch = s.toCharArray();
+        char[] tch = t.toCharArray();
+        for (int i = 0; i < sch.length; i++) {
+            if (map.containsKey(sch[i])) {
+                if (map.get(sch[i]) != tch[i]) return false;
+            } else {
+                if (revMap.containsKey(tch[i])) return false;
+                map.put(sch[i], tch[i]);
+                revMap.put(tch[i], sch[i]);
+            }
+        }
+        return true;
+    }
+}
+
 //Own Solution: HashMap T: O(n) S: O(512)
 class Solution {
     public boolean isIsomorphic(String s, String t) {
