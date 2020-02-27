@@ -1,3 +1,5 @@
+// Solution1: HashTable 
+// T: O(n) S: O(1)
 class Solution {
     public boolean isAnagram(String s, String t) {
         int[] alphabet = new int[26];
@@ -9,7 +11,27 @@ class Solution {
     }
 }
 
-//Solution 2: using HashMap
+// Solution2: HashTable 
+// T: O(n) S: O(1)
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        String encodeS = this.encode(s);
+        String encodeT = this.encode(t);
+        if (encodeS.equals(encodeT)) return true;
+        return false;
+    }
+    
+    private String encode(String str) {
+        char[] encode = new char[26];
+        if (str == null) return String.valueOf(encode);
+        for (char ch : str.toCharArray()) {
+            encode[ch-'a'] += 1;
+        }
+        return String.valueOf(encode);
+    }
+}
+
+// Solution 3: HashMap
 class Solution {
     public boolean isAnagram(String s, String t) {
         if(s.length() != t.length()) return false;
