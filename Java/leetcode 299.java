@@ -1,50 +1,58 @@
-//Solution1: using array T: O(n) S: O(1)
+// Solution1: HashMap 
+// T: O(2n) S: O(10)
 class Solution {
     public String getHint(String secret, String guess) {
-        int length = secret.length();
+        if (secret == null || guess == null) return null;
+        int len = secret.length();
         int bulls = 0, cows = 0;
-        int[] numbers = new int[10];
+        int[] count = new int[10];
         
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < len; i++) {
             char s = secret.charAt(i);
             char g = guess.charAt(i);
-
-            if(s == g) bulls++;
-            else {
-                if(numbers[s - '0']++ < 0) cows++;
-                if(numbers[g - '0']-- > 0) cows++;
+            if (s == g) bulls++;
+            else count[s-'0']++;
+        }
+        
+        for (int i = 0; i < len; i++) {
+            char s = secret.charAt(i);
+            char g = guess.charAt(i);
+            if (s != g && count[g-'0'] > 0) {
+                cows++;
+                count[g-'0']--;
             }
         }
-        return bulls  + "A" + cows + "B";
+        return bulls + "A" + cows + "B";
     }
 }
 
-
-//Own way: using HashMap T: O(n) S: O(n)
+// Solution2: HashMap (Better version) 
+// T: O(n) S: O(10)
 class Solution {
     public String getHint(String secret, String guess) {
-        int length = secret.length();
+        if (secret == null || guess == null) return null;
+        int len = secret.length();
         int bulls = 0, cows = 0;
-        Map<Character, Integer> map = new HashMap<>();
+        int[] count = new int[10];
         
-        for(int i = 0; i < length; i++) {
-            char tmp = secret.charAt(i);
-            map.put(tmp, map.getOrDefault(tmp, 0) + 1);
-            
-            if(tmp == guess.charAt(i)) {
-                bulls++;
-                map.put(tmp, map.get(tmp) - 1);
+        for (int i = 0; i < len; i++) {
+            char s = secret.charAt(i);
+            char g = guess.charAt(i);
+            if (s == g) bulls++;
+            else {
+                if (count[s - '0'] < 0) {
+                    cows++;
+                }
+                count[s - '0']++;
+                
+                if (count[g - '0'] > 0) {
+                    cows++;
+                }
+                count[g - '0']--;
             }
         }
-        
-        for(int i = 0; i < length; i++) {
-            char tmp = guess.charAt(i);
-            if(tmp != secret.charAt(i) && map.getOrDefault(tmp, 0) != 0) {
-                cows++;
-                map.put(tmp, map.get(tmp) - 1);
-            }
-        }
-        String res = bulls  + "A" + cows + "B";
-        return res;
+        return bulls + "A" + cows + "B";
     }
 }
+
+

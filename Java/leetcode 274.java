@@ -1,19 +1,20 @@
-//Own solution: sort and loop T: O(nlogn) S: O(logn)--O(n)
+// Solution1: Sort 
+// T: O(nlogn) S: O(1) (no count sort)
 class Solution {
     public int hIndex(int[] citations) {
+        if (citations == null || citations.length == 0) return 0;
         Arrays.sort(citations);
-        int len = citations.length;
-        int res = 0;
-        for(int i = len - 1; i >= 0; i--) {
-            if(citations[i] >= len - i) res = len - i;
-            else break;
+        for (int i = 0; i < citations.length; i++) {
+            int possibleH = citations.length - i;
+            if (citations[i] >= possibleH) return possibleH;
         }
-        return res;
+        return 0;
     }
 }
 
 
-//Solution1: loop T: O(n) S: O(n)
+// Solution2: Array(Hash)
+// T: O(n) S: O(n)
 class Solution {
     public int hIndex(int[] citations) {
         int len = citations.length;
