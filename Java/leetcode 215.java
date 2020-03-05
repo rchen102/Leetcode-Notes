@@ -1,6 +1,26 @@
 // Solution1: Divide and Conquer 
 // T:O(n)(best) O(N^2)(worst) S: O(1)
 class Solution {
+    // iterative
+    public int findKthLargest(int[] nums, int k) {
+        if (nums == null || nums.length == 0) return -1;
+        int lo = 0, hi = nums.length - 1;
+        int target = k;
+        while (lo <= hi) {
+            int pivot = partition(nums, lo, hi);
+            if (pivot - lo + 1 == target) return nums[pivot];
+            else if (pivot - lo + 1 < target) {
+                target = target-(pivot - lo + 1);
+                lo = pivot+1;
+            }
+            else {
+                hi = pivot-1;
+            }
+        }
+        return -1;
+    }
+
+    // reursion
     public int findKthLargest(int[] nums, int k) {
         if (nums == null || nums.length == 0) return 0;
         return helper(nums, 0, nums.length - 1, k);
