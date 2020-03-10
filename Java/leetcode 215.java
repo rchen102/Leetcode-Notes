@@ -55,16 +55,34 @@ class Solution {
     }
 }
 
-// Solution2: priorityqueue T: O(nlogk) S: O(k)
+// Solution2: Heap(PriorityQueue)
+// T: O(nlogk) S: O(k)
 class Solution {
     public int findKthLargest(int[] nums, int k) {
+        if (nums == null || nums.length == 0 ) return -1;
         PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int num : nums) {
+        for (int num : nums) {
+            if (pq.size() >= k) {
+                if (pq.peek() < num) {
+                    pq.poll();
+                    pq.offer(num);
+                }
+            }
+            else pq.offer(num);
+        }
+        return pq.poll();
+    }
+
+    // 简化，复杂度稍高，会增加不必要的插入、删除操作
+    public int findKthLargest(int[] nums, int k) {
+        if (nums == null || nums.length == 0 ) return -1;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int num : nums) {
             pq.offer(num);
-            if(pq.size() > k) {
+            if (pq.size() > k) {
                 pq.poll();
             }
         }
-        return pq.peek();
+        return pq.poll();
     }
 }

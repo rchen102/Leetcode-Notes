@@ -21,7 +21,8 @@ class Solution {
     }
 }
 
-//Own Solution: HashMap T: O(n) S: O(512)
+//Own Solution: HashMap 
+//T: O(n) S: O(512)
 class Solution {
     public boolean isIsomorphic(String s, String t) {
         Map<Character, Integer> mapS = new HashMap<>();
