@@ -5,12 +5,15 @@ class Solution {
         if (nums == null || nums.length == 0) return res;
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            if (map.containsKey(target-nums[i])) {
-                res[0] = i;
-                res[1] = map.get(target-nums[i]);
+            int wanted = target - nums[i];
+            if (map.containsKey(wanted)) {
+                res[0] = map.get(wanted);
+                res[1] = i;
                 return res;
             }
-            map.put(nums[i], i);
+            else {
+                map.put(nums[i], i);
+            }
         }
         return res;
     }
