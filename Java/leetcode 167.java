@@ -3,16 +3,19 @@
  */
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
-        int[] list = new int[2];
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-        for(int i = 0; i < numbers.length; i++) {
-            if(map.containsKey(target - numbers[i])) {
-                list[1] = i + 1;
-                list[0] = map.get(target - numbers[i]);
-                return list;
+        int[] res = new int[2];
+        if (numbers == null || numbers.length == 0) return res;
+        int left = 0, right = numbers.length - 1;
+        while (left < right) {
+            int sum = numbers[left] + numbers[right];
+            if (sum > target) right--;
+            else if (sum < target) left++;
+            else {
+                res[0] = left + 1;
+                res[1] = right + 1;
+                return res;
             }
-            map.put(numbers[i], i + 1);
         }
-        return list;
+        return res;
     }
 }

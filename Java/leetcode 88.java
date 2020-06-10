@@ -1,23 +1,25 @@
 /* Solution1: Two Pointers 
- * T: O(n) S: O(1)
+ * T: O(m+n) S: O(1)
  */
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int i = m-1;
-        int j = n-1;
-        int k = m + n - 1;
-        while (k >= 0 && i >= 0 && j >= 0) {
-            if (nums1[i] > nums2[j]) {
-                nums1[k] = nums1[i];
-                i--;
+        if (nums1 == null || nums2 == null) return;
+        int cur = m + n - 1;
+        m = m - 1;
+        n = n - 1;
+        while (m >= 0 && n >= 0) {
+            if (nums1[m] > nums2[n]) {
+                nums1[cur] = nums1[m];
+                cur--;
+                m--;
+            } else {
+                nums1[cur] = nums2[n];
+                cur--;
+                n--;
             }
-            else {
-                nums1[k] = nums2[j];
-                j--;
-            }
-            k--;
         }
-        while (j >= 0) nums1[k--] = nums2[j--];
+        //while (m >= 0) nums1[cur--] = nums1[m--]; // no need, actually
+        while (n >= 0) nums1[cur--] = nums2[n--];
     }
 }
 

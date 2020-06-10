@@ -1,31 +1,32 @@
-/* Solution: sliding window + HashMap
+/* Solution: sliding window + set
  * T: O(n) S: O(1)
  */
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        Map<Character, Integer> map = new HashMap<>(); // helper data structure to check duplicate
-        int maxLen = 0;
-        int left = 0, right = 0;
+        if (s == null || s.length() == 0) return 0;
+        int left = 0, right = 0; // sliding window
+        int res = 0;
+        Set<Character> set = new HashSet<>();
         while (right < s.length()) {
             char ch = s.charAt(right);
-            if (!map.containsKey(ch)) {
-                maxLen = Math.max(maxLen, right - left + 1);
-                map.put(ch, 1);
+            if (!set.contains(ch)) {
+                set.add(ch);
+                res = Math.max(res, set.size());
                 right++;
-            }
-            else {
-                while (map.containsKey(ch)) {
-                    char tmp = s.charAt(left);
-                    map.remove(tmp);
+            } else {
+                while (set.contains(ch)) {
+                    set.remove(s.charAt(left));
                     left++;
                 }
             }
         }
-        return maxLen;
+        return res;
     }
 }
 
-
+/* Solution: sliding window + array -> hashmap
+ * T: O(n) S: O(1)
+ */
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         int[] map = new int[256];
