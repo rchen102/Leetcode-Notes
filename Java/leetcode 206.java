@@ -11,12 +11,12 @@
 class Solution {
     public ListNode reverseList(ListNode head) {
         if (head == null || head.next == null) return head;
-        ListNode tail = reverseList(head.next);
-        ListNode prev = tail;
+        ListNode newHead = reverseList(head.next);
+        ListNode prev = newHead;
         while (prev.next != null) prev = prev.next;
         prev.next = head;
-        head.next = null;  // 清理尾巴，不然死循环
-        return tail;
+        head.next = null;  // 清理尾巴
+        return newHead;
     }
 }
 
@@ -24,11 +24,12 @@ class Solution {
 class Solution {
     public ListNode reverseList(ListNode head) {
         ListNode dummy = new ListNode(-1);
+        ListNode prev = dummy;
         while (head != null) {
-            ListNode tmp = dummy.next;
-            dummy.next = head;
-            head = head.next;  // points to next node
-            dummy.next.next = tmp;
+            ListNode next = head.next;
+            head.next = prev.next;
+            prev.next = head;
+            head = next;
         }
         return dummy.next;
     }

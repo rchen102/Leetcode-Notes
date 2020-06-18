@@ -24,13 +24,13 @@ class Solution {
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
         ListNode prev = dummy;
-        ListNode cur = head;
-        while (cur != null && cur.next != null) {
-            prev.next = cur.next;      // cur.next is new head, the one to be swapped 
-            cur.next = cur.next.next;  // connect to next candidate for cur
-            prev.next.next = cur;      // complete swap
-            prev = cur;                // update prev and cur
-            cur = cur.next; 
+        while (prev.next != null && prev.next.next != null) {
+            ListNode left = prev.next;          // first node to be swapped
+            ListNode right = prev.next.next;    // second nodeto be swapped
+            prev.next = right;
+            left.next = right.next;
+            right.next = left;
+            prev = left;
         }
         return dummy.next;
     }

@@ -21,6 +21,20 @@ class Solution {
 }
 
 // Solution2: iterative T: O(n) S: O(1)
+// 更简洁，完全不需要清理尾巴
+class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode prev = dummy;
+        while (prev.next != null) {
+            if (prev.next.val == val) prev.next = prev.next.next;
+            else prev = prev.next;
+        }
+        return dummy.next;
+    }
+}
+
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
         ListNode dummy = new ListNode(-1);

@@ -10,34 +10,33 @@
 // T: O(n) S: O(1)
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        if (head == null) return true;
+        ListNode mid = middleNode(head);
+        mid = reverseNode(mid);
+        while (mid != null) {
+            if (mid.val != head.val) return false;
+            mid = mid.next;
+            head = head.next;
+        }
+        return true;
+    }
+    
+    private ListNode middleNode(ListNode head) {
         ListNode slow = head, fast = head;
-        // Find middle node
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
-        ListNode newHead1, newHead2;
-        newHead1 = head;
-        if (fast == null) newHead2 = slow;   // even number
-        else newHead2 = slow.next;           // odd number
-        
-        newHead2 = reverse(newHead2);
-        while (newHead2 != null) {
-            if (newHead1.val != newHead2.val) return false;
-            newHead1 = newHead1.next;
-            newHead2 = newHead2.next;
-        } 
-        return true;
+        return slow;
     }
-    
-    public ListNode reverse(ListNode head) {
+ 
+    private ListNode reverseNode(ListNode head) {
         ListNode dummy = new ListNode(-1);
+        ListNode prev = dummy;
         while (head != null) {
-            ListNode tmp = head.next;
-            head.next = dummy.next;
-            dummy.next = head;
-            head = tmp;
+            ListNode next = head.next;
+            head.next = prev.next;
+            prev.next = head;
+            head = next;
         }
         return dummy.next;
     }

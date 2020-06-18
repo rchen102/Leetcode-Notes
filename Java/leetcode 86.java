@@ -20,10 +20,7 @@ class Solution {
         ListNode dummy = new ListNode(-1);
         dummy.next = tail;
         ListNode prev = dummy;
-        while (prev.next != null) {
-            if (prev.next.val >= x) break;
-            prev = prev.next;
-        }
+        while (prev.next != null && prev.next.val < x) prev = prev.next;
         head.next = prev.next;
         prev.next = head;
         return dummy.next;
