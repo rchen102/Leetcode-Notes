@@ -4,24 +4,30 @@
 class Solution {
     public int minSubArrayLen(int s, int[] nums) {
         if (nums == null || nums.length == 0) return 0;
+        // helper vars
+        int sum = 0, len = nums.length + 1;
+        
+        // sliding window
         int left = 0, right = 0;
-        int sum = 0, minLen = nums.length + 1;
+        boolean isNeedShrink = false;
         while (right < nums.length) {
-            sum += nums[right];
-            if (sum >= s) {
-                while (sum >= s) {
-                    minLen = Math.min(minLen, right - left + 1);
-                    sum -= nums[left];
-                    left++;
-                }
-                right++;
-            }
-            else {
-                right++;
+            int n = nums[right];
+            right++;
+            
+            sum += n;
+            if (sum >= s) isNeedShrink = true;
+            
+            while (isNeedShrink) {
+                len = Math.min(len, right - left);
+                
+                int toRemove = nums[left];
+                left++;
+                
+                sum -= toRemove;
+                if (sum < s) isNeedShrink = false;
             }
         }
-        if (minLen <= nums.length) return minLen;
-        return 0;
+        return len > nums.length ? 0 : len;
     }
 }
 

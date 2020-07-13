@@ -5,6 +5,32 @@ class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> res = new ArrayList<>();
         if (candidates == null || candidates.length == 0) return res;
+        Arrays.sort(candidates); // log(n)
+        backtrace(candidates, target, 0, new ArrayList<>(), res);
+        return res;
+    }
+    
+    private void backtrace(int[] candidates, int remain, int start, List<Integer> tmp, List<List<Integer>> res) {
+        if (remain == 0) {
+            res.add(new ArrayList<>(tmp));
+            return;
+        }
+        for (int i = start; i < candidates.length; i++) {
+            if (candidates[i] > remain) break;
+            if (i != start && candidates[i] == candidates[i-1]) continue;  // avoid duplicate solution
+            tmp.add(candidates[i]);
+            backtrace(candidates, remain - candidates[i], i + 1, tmp, res);
+            tmp.remove(tmp.size() - 1);
+        }
+    }
+}
+
+
+
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (candidates == null || candidates.length == 0) return res;
         Arrays.sort(candidates);
         backtrace(res, new ArrayList<>(), candidates, 0, target, 0);
         return res;

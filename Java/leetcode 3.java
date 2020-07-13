@@ -1,50 +1,56 @@
-/* Solution: sliding window + set
+/* Solution: sliding window + Map
  * T: O(n) S: O(1)
  */
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         if (s == null || s.length() == 0) return 0;
-        int left = 0, right = 0; // sliding window
+        Map<Character, Integer> map = new HashMap<>();  // 判断是否重复使用
+        int left = 0, right = 0;
+        boolean isNeedShrink = false;
         int res = 0;
-        Set<Character> set = new HashSet<>();
         while (right < s.length()) {
             char ch = s.charAt(right);
-            if (!set.contains(ch)) {
-                set.add(ch);
-                res = Math.max(res, set.size());
-                right++;
-            } else {
-                while (set.contains(ch)) {
-                    set.remove(s.charAt(left));
-                    left++;
-                }
+            right++;
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+            if (map.get(ch) > 1) isNeedShrink = true;
+           
+            while (isNeedShrink) {
+                char toRemove = s.charAt(left);
+                left++;
+                map.put(toRemove, map.get(toRemove) - 1);
+                if (toRemove == ch) isNeedShrink = false;
             }
+            res = Math.max(right - left, res);
         }
         return res;
     }
 }
 
-/* Solution: sliding window + array -> hashmap
+/* Solution: sliding window + array -> hashmap 更快
  * T: O(n) S: O(1)
  */
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        int[] map = new int[256];
+        if (s == null || s.length() == 0) return 0;
+        int[] map = new int[256];  // 判断是否重复使用
         int left = 0, right = 0;
-        int maxLen = 0;
+        boolean isNeedShrink = false;
+        int res = 0;
         while (right < s.length()) {
-            if (map[s.charAt(right)] == 0) {
-                maxLen = Math.max(right - left + 1, maxLen);
-                map[s.charAt(right)]++;
-                right++;
+            char ch = s.charAt(right);
+            right++;
+            
+            map[ch]++;
+            if (map[ch] > 1) isNeedShrink = true;
+            
+            while (isNeedShrink) {
+                char toRemove = s.charAt(left);
+                left++;
+                map[toRemove]--;
+                if (toRemove == ch) isNeedShrink = false;
             }
-            else {
-                while (map[s.charAt(right)] != 0) {
-                    map[s.charAt(left)] = 0;
-                    left++;
-                }
-            }
+            res = Math.max(right - left, res);
         }
-        return maxLen;
+        return res;
     }
 }
