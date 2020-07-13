@@ -1,74 +1,60 @@
-//Own solution1: T: O(n*k) S: O(n)
+// Solution1: sliding window + Deque
+// T: O(n) S: O(k)
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
-        if(nums == null) return null;
-        int len = nums.length;
-        if(len < 1) return new int[0];
-        
+        if (nums == null || nums.length == 0) return null;
+        // helper variables
         int[] res = new int[nums.length - k + 1];
-        for(int i = 0; i <= nums.length - k; i++) {
-            res[i] = getMax(nums, i, k);
+        Deque<Integer> queue = new LinkedList<>();
+        
+        // sliding window
+        int windowLen = k;
+        int cur = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int n = nums[i];
+            // insert to window
+            while (!queue.isEmpty() && nums[queue.peekLast()] <= n) {
+                queue.pollLast();
+            }
+            queue.offerLast(i);
+            // leave window
+            if (i >= windowLen) {
+                if (!queue.isEmpty() && queue.peekFirst() <= i - windowLen) queue.pollFirst();
+            }
+            // update
+            if (i == k - 1 || i >= windowLen) {
+                res[cur] = nums[queue.peekFirst()];
+                cur++;
+            }
         }
         return res;
-    }
-    
-    private int getMax(int[] nums, int start, int k) {
-        int max = nums[start];
-        for(int j = start + 1; j < start + k; j++) {
-            max = (max > nums[j] ? max : nums[j]);
-        }
-        return max;
     }
 }
 
-//Own solution2: T: worst: O(nk) S: O(n)
+// Solution2: sliding window + heap
+// 超时
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
-        if(nums == null) return null;
-        int len = nums.length;
-        if(len < 1) return new int[0];
+        if (nums == null || nums.length == 0) return null;
+        // helper variables
+        List<Integer> res = new ArrayList<>();
+        PriorityQueue<Integer> heap = new PriorityQueue<>(k + 1, (a, b) -> b - a);
         
-        int[] res = new int[nums.length - k + 1];
-        res[0] = getMax(nums, 0, k);
-        int max = res[0];
-        
-        for(int i = 1; i <= nums.length - k; i++) {
-            if(nums[i + k -1] > nums[i-1]) max = Math.max(nums[i + k - 1], max);
-            else if(max == nums[i-1]) max = getMax(nums, i, k);
-            res[i] = max;
-        }
-        return res;
-    }
-    
-    private int getMax(int[] nums, int start, int k) {
-        int max = nums[start];
-        for(int j = start + 1; j < start + k; j++) {
-            max = (max > nums[j] ? max : nums[j]);
-        }
-        return max;
-    }
-}
-
-//Best solution: deque T: O(n) S: O(k)
-class Solution {
-    public int[] maxSlidingWindow(int[] nums, int k) {
-        int len = nums.length;
-        if(len < 1) return nums;
-        
-        int[] res = new int[len - k + 1];
-        Deque<Integer> dq = new LinkedList<>();
-        for(int i = 0; i < len; i++) {
-            if(!dq.isEmpty() && dq.peek() < i - k + 1) {
-                dq.poll();
+        // sliding window
+        int windowLen = k;
+        for (int i = 0; i < nums.length; i++) {
+            int n = nums[i];
+            heap.add(n);
+            
+            if (i >= windowLen) {
+                int leave = nums[i - windowLen];
+                heap.remove(new Integer(leave));   // O(k)
             }
-            while(!dq.isEmpty() && nums[dq.peekLast()] <= nums[i]) {
-                dq.pollLast();
-            }
-            dq.offer(i);
-            if(i - k + 1 >= 0) {
-                res[i - k + 1] = nums[dq.peek()];
+            
+            if (i == k - 1 || i >= windowLen) {
+                res.add(heap.peek());
             }
         }
-        return res;
+        return res.stream().mapToInt(Integer :: valueOf).toArray();
     }
 }
