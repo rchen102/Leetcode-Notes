@@ -40,7 +40,7 @@ class Solution {
 
 /**
  * Solution2: Heap (PriorityQueue)
- *
+ * O(N*logk)  S: O(k)
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {

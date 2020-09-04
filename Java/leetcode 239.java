@@ -22,7 +22,7 @@ class Solution {
                 if (!queue.isEmpty() && queue.peekFirst() <= i - windowLen) queue.pollFirst();
             }
             // update
-            if (i == k - 1 || i >= windowLen) {
+            if (i >= windowLen - 1) {
                 res[cur] = nums[queue.peekFirst()];
                 cur++;
             }

@@ -1,5 +1,5 @@
 // Solution1: HashSet + Sliding Window 
-// T: O(n) S: O(k)
+// T: O(n) S: O(k) worst
 class Solution {
     public boolean containsNearbyDuplicate(int[] nums, int k) {
         if (nums == null || nums.length == 0) return false;

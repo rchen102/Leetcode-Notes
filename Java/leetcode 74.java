@@ -1,6 +1,6 @@
 /** 
  * Own solution: Binary Search
- * T: O(logmax(row, col)) S: O(1)
+ * T: O(log(row) + log(col)) S: O(1)
  */  
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
@@ -30,7 +30,7 @@ class Solution {
 
 /**
  * Solution1: BST
- * T: O(log(row * col)) S: O(1)
+ * T: O(m+n) S: O(1)
  */
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
