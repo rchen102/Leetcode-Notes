@@ -4,7 +4,7 @@ class Solution {
         if (nums == null || nums.length == 0) return new int[0];
         int n = nums.length;
         
-        // 使用负号来做标记
+        // 使用负号来做标记，寻找重复出现的元素
         int dup = -1;
         for (int i = 0; i < n; i++) {
             int cur = nums[i];  // 当前遍历到的元素
@@ -12,7 +12,7 @@ class Solution {
             
             // 准备做标记，同时判断是否已经被标记
             if (nums[idx] < 0) {
-                // 已经被标记了，所以找到了重复元素
+                // 已经被标记了，当前不是第一次出现
                 dup = Math.abs(cur);  // 这里注意，可能已经被别人标记了，因此使用 abs
             } else {
                 // 还未被标记，标记

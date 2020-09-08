@@ -33,23 +33,24 @@ class Solution {
 //Solution2: DFS recursive T： O(n) S: O(n)
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
-        helper(res, root, 0);
+        List<List<Integer>> res = new LinkedList<>();
+        dfs(root, res, 0);
         return res;
     }
     
-    public void helper(List<List<Integer>> res, TreeNode root, int level) {
-        if(root == null) return;
-        if(res.size() == level) {
-            List<Integer> tmp = new LinkedList<>();
-            tmp.add(root.val);
+    private void dfs(TreeNode cur, List<List<Integer>> res, int level) {
+        if (cur == null) return;
+        List<Integer> tmp;
+        if(level == res.size()) {
+            // 第一次到达该层
+            tmp = new LinkedList<>();
             res.add(tmp);
         }
         else {
-            List<Integer> tmp = res.get(level);
-            tmp.add(root.val);
+            tmp = res.get(level); 
         }
-        helper(res, root.left, level+1);
-        helper(res, root.right, level + 1);
-    } 
+        tmp.add(cur.val);
+        dfs(cur.left, res, level + 1);
+        dfs(cur.right, res, level + 1);
+    }
 }
