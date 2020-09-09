@@ -7,30 +7,40 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-
-//Own solution: recursive T: O(n^2)(worst) O(nlgn)(best) S: O(n)(wosrt) (O(h))
+// Solution1: pre-order recursive T: O(n) S: O(n)
 class Solution {
+    // value -> idx for inorder
+    Map<Integer, Integer> map = new HashMap<>();
+    
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-        int length = inorder.length;
-        if(length < 1) return null;
-        return helper(inorder, postorder, 0, length-1, 0, length-1);
+        if (postorder == null || inorder == null) return null;
+        if (postorder.length == 0 || inorder.length == 0) return null;
+        
+        // T: O(n) S: O(n)
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+        return build(inorder, postorder, 0, 0, inorder.length);
     }
     
-    private TreeNode helper(int[] inorder, int[] postorder, int i, int j, int m, int n) {
-        if(i > j) return null;
-        if(i == j) {
-            TreeNode p = new TreeNode(inorder[i]);
-            return p;
-        }
-        int num = 0;
-        for(int k = i; k <= j; k++) {
-            if(inorder[k] == postorder[n]) {
-                num = k;
-            }
-        }
-        TreeNode root = new TreeNode(postorder[n]);
-        root.left = helper(inorder, postorder, i, num-1, m, m+num-i-1);
-        root.right = helper(inorder, postorder, num+1, j, m+num-i, n-1);
+    /**
+     * is: start idx for inorder
+     * ps: start idx for postorder
+     */
+    private TreeNode build(int[] inorder, int[] postorder, int is, int ps, int len) {
+        if (len == 0) return null;
+        
+        int rootVal = postorder[ps + len - 1];
+        int rootIdx = map.get(rootVal);
+        
+        // 确定 左右子树的结点个数
+        int leftNum = rootIdx - is;
+        int rightNum = len - leftNum - 1;
+        
+        // 够建二叉树
+        TreeNode root = new TreeNode(rootVal);
+        root.left = build(inorder, postorder, is, ps, leftNum);
+        root.right = build(inorder, postorder, rootIdx+1, ps+leftNum, rightNum);
         return root;
     }
 }

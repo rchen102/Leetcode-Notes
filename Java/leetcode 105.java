@@ -8,33 +8,43 @@
  * }
  */
 
-//Own solution: recursive T: O(n^2)(worst) O(nlgn)(best) S: O(n)(wosrt) (O(h))
+// Solution1: pre-order recursive T: O(n) S: O(n)
 class Solution {
+    // map value -> idx for inorder
+    Map<Integer, Integer> map = new HashMap<>();
+    
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        int length = preorder.length;
-        if(length < 1) return null;
-        return helper(preorder, inorder, 0, length-1, 0, length-1);
+        if (preorder == null || inorder == null) return null;
+        if (preorder.length == 0 || inorder.length == 0) return null;
+        
+        // T: O(n) S: O(n)
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+        
+        return build(preorder, inorder, 0, 0, preorder.length);
     }
-    private TreeNode helper(int[] preorder, int[] inorder, int i, int j, int m, int n) {
-        if(i > j) return null;
-        if(i == j) {
-            TreeNode p = new TreeNode(preorder[j]);
-            return p;
-        }
-        int num = 0;
-        for(int k = m; k <= n; k++) {
-            if(inorder[k] == preorder[i]) {
-                num = k;
-            }
-        }
-        TreeNode root = new TreeNode(preorder[i]);
-        root.left = helper(preorder, inorder, i+1, i+num-m, m, num-1);
-        root.right = helper(preorder, inorder, i+num-m+1, j, num+1, n);
+    
+    private TreeNode build(int[] preorder, int[] inorder, int ps, int is, int len) {
+        if (len == 0) return null;
+        
+        int rootVal = preorder[ps];
+        int rootIdx = map.get(rootVal);
+        
+        // 计算左右子树结点总数
+        int leftNum = rootIdx - is;
+        int rightNum = len - leftNum - 1;
+        
+        // 够建子树
+        TreeNode root = new TreeNode(rootVal);
+        root.left = build(preorder, inorder, ps+1, is, leftNum);
+        root.right = build(preorder, inorder, ps+1+leftNum, rootIdx+1, rightNum);
         return root;
     }
 }
 
-//Solution2: iterative using stack  T: O(n) S: O(n)(wosrt) (O(h))
+
+// Solution2: iterative using stack  T: O(n) S: O(n)(wosrt) (O(h))
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         int length = preorder.length;
