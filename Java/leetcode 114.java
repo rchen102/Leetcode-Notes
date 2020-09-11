@@ -7,43 +7,54 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//Solution1: recursive T: O(n) S: O(h)
+// Solution1: post-order dfs T: O(n) S: O(h)
 class Solution {
     public void flatten(TreeNode root) {
-        helper(root, null);
+        dfs(root, null);
     }
     
-    private TreeNode helper(TreeNode cur, TreeNode prev) {
-        if(cur == null) return prev;
-        prev = helper(cur.right, prev);
-        prev = helper(cur.left, prev);
-        cur.right = prev;
-        cur.left = null;
-        prev = cur;
-        return prev;
+    /**
+     *  1. flatten root
+     *  2. link the list after root
+     *  3. return the newHead
+     */
+    public TreeNode dfs(TreeNode root, TreeNode linkedList) {
+        if (root == null) return linkedList;
+        linkedList = dfs(root.right, linkedList);
+        linkedList = dfs(root.left, linkedList);
+        root.right = linkedList;
+        root.left = null;
+        linkedList = root;
+        return linkedList;
     }
 }
 
-//Solution2: iterative pre-order search T: O(n) S: O(h)
+// Solution2: iterative pre-order  T: O(n) S: O(h)
 class Solution {
     public void flatten(TreeNode root) {
-        if(root == null) return;
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        TreeNode start = new TreeNode(0);
-        
-        TreeNode cur;
+        if (root == null) return;
+        Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
-        while(!stack.empty()) {
-            cur = stack.pop();
-            start.right = cur;
-            start = cur;
-            if(cur.right != null)
-                stack.push(cur.right);
-            if(cur.left != null) {
-                stack.push(cur.left);
-                cur.left = null;
+        TreeNode dummy = new TreeNode();
+        TreeNode prev = dummy;
+        while (!stack.isEmpty()) {
+            TreeNode cur = stack.pop();
+            TreeNode left = cur.left;
+            TreeNode right = cur.right;
+            // do some with cur
+            prev.right = cur;
+            cur.left = null;
+            cur.right = null;
+            prev = cur;
+            // push left and child
+            if (right != null) {
+                stack.push(right);
             }
-        }   
+            if (left != null) {
+                stack.push(left);
+            }
+        }
+        prev.right = null;
     }
 }
 

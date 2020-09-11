@@ -7,30 +7,37 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-// Solution1: recursion T: O(n) S: O(n) worst
+// Solution1: recursion pre-order T: O(n) S: O(n) 
 class Solution {
     public TreeNode invertTree(TreeNode root) {
-        if(root == null) return null;
-        TreeNode tmp = root.left;
-        root.left = invertTree(root.right);
-        root.right = invertTree(tmp);
+        dfs(root);
         return root;
+    }
+    
+    private void dfs(TreeNode cur) {
+        if (cur == null) return;
+        TreeNode tmp = cur.left;
+        cur.left = cur.right;
+        cur.right = tmp;
+        dfs(cur.left);
+        dfs(cur.right);
     }
 }
 
-// Solution2: iterative T: O(n) S: O(n) (wide = n/2)
+// Solution2: iterative pre-order T: O(n) S: O(n) 
 class Solution {
     public TreeNode invertTree(TreeNode root) {
-        if (root == null) return null;
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        while (!queue.isEmpty()) {
-            TreeNode cur = queue.poll();
+        if (root == null) return root;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode cur = stack.pop();
+            if (cur == null) continue;
             TreeNode tmp = cur.left;
             cur.left = cur.right;
             cur.right = tmp;
-            if (cur.left != null) queue.offer(cur.left);
-            if (cur.right != null) queue.offer(cur.right);
+            stack.push(cur.left);
+            stack.push(cur.right);
         }
         return root;
     }

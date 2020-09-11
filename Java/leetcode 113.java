@@ -1,20 +1,28 @@
-//Solution1: recursive backtracking dfs T: O(n) S: O(n) worst
+// Solution1: recursive backtrace dfs T: O(n) S: O(n) worst
 class Solution {
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
         List<List<Integer>> res = new ArrayList<>();
-        helper(root, sum, res, new ArrayList<>());
+        dfs(root, sum, new ArrayList<>(), res);
         return res;
     }
     
-    public void helper(TreeNode root, int sum, List<List<Integer>> res, List<Integer> tmp) {
-        if (root == null) return;
-        tmp.add(root.val);
-        if (root.left == null && root.right == null) {  // This is a leaf
-            if (root.val == sum) res.add(new ArrayList<>(tmp));
-        } else { // This is not a leaf
-            helper(root.left, sum - root.val, res, tmp);
-            helper(root.right, sum - root.val, res, tmp);
+    private void dfs(TreeNode cur, int remain, List<Integer> curPath, List<List<Integer>> res) {
+        if (cur == null) return;
+        // update vars with the new step
+        curPath.add(cur.val);
+        remain -= cur.val;
+        
+        // do check for current step
+        if (cur.left == null && cur.right == null) {
+            if (remain == 0) {
+                res.add(new ArrayList<>(curPath));
+            }
         }
-        tmp.remove(tmp.size() - 1);
+        
+        dfs(cur.left, remain, curPath, res);
+        dfs(cur.right, remain, curPath, res);
+        
+        // back one step
+        curPath.remove(curPath.size() - 1);
     }
 }

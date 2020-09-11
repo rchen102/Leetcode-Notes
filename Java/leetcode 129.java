@@ -7,23 +7,26 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-//Solution1: recursive dfs T: O(n) S: O(h) h = logn
+// Solution1: pre-order recursive T: O(n) S: O(h) h = logn
 class Solution {
     public int sumNumbers(TreeNode root) {
-        if (root == null) return 0;
-        return helper(0, root);
+        return dfs(root, 0);
     }
     
-    public int helper(int tmp, TreeNode root) {
-        tmp = tmp * 10 + root.val;
-        if (root.left == null && root.right == null) {
-            return tmp;
-        } else {
-            int sum = 0;
-            if (root.left != null) sum += helper(tmp, root.left);
-            if (root.right != null) sum += helper(tmp, root.right);
-            return sum;
+    private int dfs(TreeNode cur, int pathSum) {
+        if (cur == null) return pathSum;
+        pathSum = pathSum * 10 + cur.val;
+        if (cur.left == null && cur.right == null) return pathSum;
+        
+        // 如果不是叶子节点，则还不能返回当前的 pathSum，而是将 pathSum 作为参数继续计算
+        int res = 0;
+        if (cur.left != null) {
+            res += dfs(cur.left, pathSum);
         }
+        if (cur.right != null) {
+            res += dfs(cur.right, pathSum);
+        }
+        return res;
     }
 }
 

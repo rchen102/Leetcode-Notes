@@ -2,15 +2,17 @@
 class Solution {
     public boolean isValidBST(TreeNode root) {
         if (root == null) return true;
-        return dfs(root, Long.MIN_VALUE, Long.MAX_VALUE);
+        return dfs(root, null, null);
     }
     
-    private boolean dfs(TreeNode cur, long min, long max) {
-        if (cur == null) return true;
-        if ((long)cur.val <= min || (long)cur.val >= max) return false;
-        boolean left = dfs(cur.left, min, cur.val);
-        boolean right = dfs(cur.right, cur.val, max);
-        return left && right;
+    private boolean dfs(TreeNode root, TreeNode min, TreeNode max) {
+        if (root == null) return true;
+        
+        if (min != null && root.val <= min.val) return false;
+        if (max != null && root.val >= max.val) return false;
+        
+        return dfs(root.left, min, root) && dfs(root.right, root, max);
+    
     }
 }
 

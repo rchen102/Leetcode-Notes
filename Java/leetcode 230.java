@@ -8,18 +8,38 @@
  * }
  */
 
-// Own solution: dfs inorder traversal T: O(n)(worst) S: O(n)
+// Solution1: dfs inorder traversal T: O(n) S: O(n)
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
         List<Integer> list = new ArrayList<>();
-        helper(root, list, k);
+        dfs(root, list, k);
         return list.get(k-1);
     }
     
-    public void helper(TreeNode root, List<Integer> list, int k) {
-        if (root.left != null) helper(root.left, list, k);
-        if (list.size() == k) return;
-        list.add(root.val);
-        if (root.right != null) helper(root.right, list, k);
+    private void dfs(TreeNode cur, List<Integer> list, int k) {
+        if (cur == null || list.size() >= k) return;
+        dfs(cur.left, list, k);
+        list.add(cur.val);
+        dfs(cur.right, list, k);
+    }
+}
+
+// Solution2: in-order iterative T: O(n) S: O(logn) O(n) worst
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        int counter = 0;
+        while (cur != null || !stack.isEmpty()) {
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            cur = stack.pop();
+            counter++;
+            if (counter == k) return cur.val;
+            cur = cur.right;
+        }
+        return -1;
     }
 }

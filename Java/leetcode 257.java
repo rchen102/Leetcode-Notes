@@ -10,16 +10,19 @@
 //Solution1: dfs T: O(n) S: O(n)(worst)
 class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
-        List<String> list = new ArrayList<>();
-        if(root != null) search(list, "", root);
-        return list;
+        List<String> res = new LinkedList<>();
+        dfs(root, "", res);
+        return res;
     }
     
-    private void search(List<String> list, String str, TreeNode cur) {
-        if(cur.left == null && cur.right ==null) list.add(str + cur.val);
-        if(cur.left != null)
-            search(list, str + cur.val + "->", cur.left);
-        if(cur.right != null)
-            search(list, str + cur.val + "->", cur.right);
+    private void dfs(TreeNode cur, String curPath, List<String> res) {
+        if (cur == null) return;
+        curPath = curPath + cur.val;
+        if (cur.left == null && cur.right == null) {
+            res.add(curPath.toString());
+        }
+        curPath = curPath + "->";
+        dfs(cur.left, curPath, res);
+        dfs(cur.right, curPath, res);
     }
 }
