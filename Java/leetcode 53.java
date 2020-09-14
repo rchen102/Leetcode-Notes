@@ -1,14 +1,29 @@
-//Solution1: dynamic programming
+// Solution1: 基本的 dp  T: O(n) S: O(n)
 class Solution {
     public int maxSubArray(int[] nums) {
-        int Max = nums[0];
-        int sum = 0;
-        for(int num : nums) {
-            sum += num;
-            sum = Math.max(num, sum);
-            Max = Math.max(Max, sum);
+        if (nums == null || nums.length == 0) return 0;
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        int res = dp[0];
+        for (int i = 1; i < nums.length; i++) {
+            dp[i] = Math.max(nums[i], dp[i-1] + nums[i]);
+            res = Math.max(res, dp[i]);
         }
-        return Max;
+        return res;
+    }
+}
+
+// 基本 dp 状态压缩优化 T: O(n) S: O(1)
+class Solution {
+    public int maxSubArray(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        int prev = nums[0];
+        int res = prev;
+        for (int i = 1; i < nums.length; i++) {
+            prev = Math.max(nums[i], prev + nums[i]);
+            res = Math.max(res, prev);
+        }
+        return res;
     }
 }
 
