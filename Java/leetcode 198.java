@@ -1,23 +1,21 @@
-//Own solution: dynamic programming T: O(n) S: O(n)
+// Solution: 基本dp T: O(n) S: O(n)
 class Solution {
     public int rob(int[] nums) {
-        if(nums.length < 1)
-            return 0;
-        
-        int[] res = new int[nums.length];
-        res[0] = nums[0];
-        if(nums.length < 2)
-            return res[0];
-        
-        res[1] = Math.max(nums[0], nums[1]);
-        for(int i = 2; i < nums.length; i++) {
-            res[i] = Math.max(res[i-1], res[i-2] + nums[i]);
+        if (nums == null || nums.length == 0) return 0;
+        int n = nums.length;
+        int[] dp = new int[n+1];
+        // base cases
+        dp[n] = 0;
+        dp[n-1] = nums[n-1];
+        // dp
+        for (int i = n-2; i >= 0; i--) {
+            dp[i] = Math.max(dp[i+1], nums[i] + dp[i+2]);
         }
-        return res[nums.length - 1];  
+        return dp[0];
     }
 }
 
-//More simplified version T: O(n) S: O(1)
+// 状态压缩 T: O(n) S: O(1)
 class Solution {
     public int rob(int[] nums) {
         int preMax = 0, curMax = 0;

@@ -1,54 +1,57 @@
-//Solution1: divide and conquer T: O(nlogn) S: O(logn)
+// Solution: dp 状态机模型 T: O(n) S: O(n)
 class Solution {
     public int maxProfit(int[] prices) {
-        if(prices.length <= 1) 
-            return 0;
-        int res = subMax(prices, 0, prices.length - 1);
-        return res;
-    }
-    
-    public int subMax(int[] prices, int start, int end) {
-        if(start == end) return 0;
-        
-        int mid = (start + end)/2;
-        int tmp = getMax(prices, mid + 1, end) - getMin(prices, start, mid);
-        if(tmp < 0) tmp = 0;
-        
-        int tmp2 = Math.max(subMax(prices, start, mid), subMax(prices, mid + 1, end));
-        return Math.max(tmp, tmp2);
-    }
-    
-    //Get max in the array prices from index start to end
-    public int getMax(int[] prices, int start, int end) {
-        int max = prices[start];
-        for(int i = start; i <= end; i++) {
-            if(prices[i] > max)
-                max = prices[i];
+        if (prices == null || prices.length <= 1) return 0;
+        int n = prices.length;
+        int[][] dp = new int[n][2];
+        dp[0][0] = 0;
+        dp[0][1] = -prices[0];
+        for (int i = 1; i < n; i++) {
+            dp[i][1] = Math.max(dp[i-1][1], -prices[i]);
+            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
         }
-        return max;
+        return dp[n-1][0];
     }
-    
-    //Get min in the array prices from index start to end
-    public int getMin(int[] prices, int start, int end) {
-        int min = prices[start];
-        for(int i = start; i <= end; i++) {
-            if(prices[i] < min)
-                min = prices[i];
+}
+
+// 状态压缩优化  T: O(n) S: O(1)
+class Solution {
+    public int maxProfit(int[] prices) {
+        if (prices == null || prices.length <= 1) return 0;
+        int n = prices.length;
+        
+        int keep = 0;
+        int buy = -prices[0];
+        
+        for (int i = 1; i < n; i++) {
+            keep = Math.max(keep, buy + prices[i]);
+            buy = Math.max(buy, -prices[i]);
         }
-        return min;
-    }    
-    
+        return keep;
+    }
 }
 
 
-//Solution2: Kadane's Algorithm (dynamic programming) T: O(n) S: O(1)
+// Solution: dp 转换为求最大子数组和的问题 T: O(n) S: O(1)
 class Solution {
     public int maxProfit(int[] prices) {
-        int maxCur = 0, maxSofar = 0;
-        for(int i = 1; i < prices.length; i++) {
-            maxCur = Math.max(0, maxCur += prices[i] - prices[i-1]);
-            maxSofar= Math.max(maxCur, maxSofar);
+        if (prices == null || prices.length <= 1) return 0;
+        int[] diff = new int[prices.length - 1];
+        for (int i = 0; i < diff.length; i++) {
+            diff[i] = prices[i+1] - prices[i];
         }
-        return maxSofar;
+        int res = findMaxSubarray(diff);
+        return res > 0 ? res : 0;
+    }
+    
+    int findMaxSubarray(int[] arr) {
+        int[] dp = new int[arr.length];
+        dp[0] = arr[0];
+        int max = dp[0];
+        for (int i = 1; i < arr.length; i++) {
+            dp[i] = Math.max(arr[i], dp[i-1] + arr[i]);
+            max = Math.max(dp[i], max);
+        }
+        return max;
     }
 }
