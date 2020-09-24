@@ -25,22 +25,20 @@ class Solution {
         int piles = 0;
         for (int i = 0; i < nums.length; i++) {
             int card = nums[i];
-            int find = binarySearchLeftBound(tops, piles, card);
-            if (find == piles) {
-                piles++;
-            }
-            tops[find] = card;
+            int position = binarySearch(card, tops, piles);
+            if (position > piles-1) piles++;
+            tops[position] = nums[i];
         }
         return piles;
     }
     
-    public int binarySearchLeftBound(int[] nums, int len, int target) {
-        int lo = 0, hi = len - 1;
+    // search range [0...piles-1]
+    int binarySearch(int card, int[] tops, int piles) {
+        int lo = 0, hi = piles - 1;
         while (lo <= hi) {
             int mid = lo + ((hi - lo) >> 1);
-            if (nums[mid] < target) lo = mid + 1;
-            else if (nums[mid] > target) hi = mid - 1;
-            else hi = mid - 1; 
+            if (card > tops[mid]) lo++;
+            else if (card <= tops[mid]) hi--;
         }
         return lo;
     }
