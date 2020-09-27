@@ -1,30 +1,36 @@
-//Solution1: using 2 stack
+// Solution1: using 2 stack T: O(1)
 class MinStack {
-    private Stack<Integer> stack;
-    private Stack<Integer> minStack;
 
+    Stack<Integer> data;
+    Stack<Integer> minStack;
+    
     /** initialize your data structure here. */
     public MinStack() {
-        stack = new Stack<>();
+        data = new Stack<>();
         minStack = new Stack<>();
-        minStack.push(Integer.MAX_VALUE);
     }
     
     public void push(int x) {
-        stack.push(x);
-        if(x <= minStack.peek()) {
+        // 1. 压入数据栈
+        data.push(x);
+        // 2. 寻找当前最小值，压入 minStack
+        if (minStack.isEmpty()) {
+            // 第一个元素
             minStack.push(x);
+        }
+        else {
+            if (x < minStack.peek()) minStack.push(x);
+            else minStack.push(minStack.peek());
         }
     }
     
     public void pop() {
-        int s = stack.pop();
-        if(s == minStack.peek())
-            minStack.pop();  
+        data.pop();
+        minStack.pop();
     }
     
     public int top() {
-        return stack.peek();
+        return data.peek();
     }
     
     public int getMin() {
@@ -42,47 +48,63 @@ class MinStack {
  */
 
 //Solution2: creat a new data structure
-class MinStack {   
-    private Node head;
-
-    /** initialize your data structure here. */
-    public MinStack() {
- 
-    }
+class MinStack {
     
-    public void push(int x) {
-        if(head == null) {
-            head = new Node(x, x, null);
-        }
-        else {
-            head = new Node(x, Math.min(x, head.min), head);
-        }
-    }
-    
-    public void pop() {
-        head = head.next;
-    }
-    
-    public int top() {
-        return head.val;
-    }
-    
-    public int getMin() {
-        return head.min;
-    }
-    
-    private class Node {
+    class Node {
         int val;
         int min;
         Node next;
-
-        private Node(int val, int min, Node next) {
+    
+        public Node() {}
+        
+        public Node(int val, int min) {
             this.val = val;
             this.min = min;
-            this.next = next;
+        }
+    }
+    
+    Node head; 
+
+    /** initialize your data structure here. */
+    public MinStack() {
+        // 虚拟头结点
+        head = new Node();
+    }
+    
+    public void push(int x) {
+        Node newNode;
+        if (head.next == null) {
+            newNode = new Node(x, x);
+        }
+        else {
+            int curMin = Math.min(head.next.min, x);
+            newNode = new Node(x, curMin);
+        }
+        newNode.next = head.next;
+        head.next = newNode;
+    }
+    
+    public void pop() {
+        if (head.next != null) {
+            head = head.next;
+        }
+    }
+    
+    public int top() {
+        if (head.next == null) {
+            throw new RuntimeException("Stack is empty!");
+        }
+        else {
+            return head.next.val;
+        }
+    }
+    
+    public int getMin() {
+        if (head.next == null) {
+            throw new RuntimeException("Stack is empty!");
+        }
+        else {
+            return head.next.min;
         }
     }
 }
-
-
-

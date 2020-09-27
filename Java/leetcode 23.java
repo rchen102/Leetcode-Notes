@@ -8,7 +8,32 @@
  */
 
 /**
- * Solution1: divide and conquer
+ * Solution1: Heap (PriorityQueue)
+ * O(N*logk)  S: O(k)
+ */
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) return null;
+        PriorityQueue<ListNode> pQueue = new PriorityQueue<>(lists.length, (p, q) -> p.val - q.val);
+        ListNode dummy = new ListNode(0);
+        ListNode prev = dummy;
+        for(ListNode node : lists) {
+            if(node != null) pQueue.offer(node);
+        }
+        while (!pQueue.isEmpty()) {
+            prev.next = pQueue.poll();
+            prev = prev.next;
+            if (prev.next != null) {
+                pQueue.offer(prev.next);
+            }
+        }
+        return dummy.next;
+    }
+}
+
+
+/**
+ * Solution2: divide and conquer
  * T: O(nklogk) (n: average number of nodes in a list, k: number of lists) 
  * S: O(logk)
  */
@@ -38,26 +63,3 @@ class Solution {
     }
 }
 
-/**
- * Solution2: Heap (PriorityQueue)
- * O(N*logk)  S: O(k)
- */
-class Solution {
-    public ListNode mergeKLists(ListNode[] lists) {
-        if (lists == null || lists.length == 0) return null;
-        PriorityQueue<ListNode> pQueue = new PriorityQueue<>(lists.length, (p, q) -> p.val - q.val);
-        ListNode dummy = new ListNode(0);
-        ListNode prev = dummy;
-        for(ListNode node : lists) {
-            if(node != null) pQueue.offer(node);
-        }
-        while (!pQueue.isEmpty()) {
-            prev.next = pQueue.poll();
-            prev = prev.next;
-            if (prev.next != null) {
-                pQueue.offer(prev.next);
-            }
-        }
-        return dummy.next;
-    }
-}

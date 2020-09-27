@@ -1,57 +1,44 @@
-// Solution1: Divide and Conquer 
+// Solution1: 快排的分区函数思想
 // T:O(n)(best) O(N^2)(worst) S: O(1)
 class Solution {
-    // iterative
     public int findKthLargest(int[] nums, int k) {
         if (nums == null || nums.length == 0) return -1;
-        int lo = 0, hi = nums.length - 1;
-        int target = k;
+        int lo = 0, hi = nums.length - 1, target = k;
         while (lo <= hi) {
-            int pivot = partition(nums, lo, hi);
-            if (pivot - lo + 1 == target) return nums[pivot];
-            else if (pivot - lo + 1 < target) {
-                target = target-(pivot - lo + 1);
-                lo = pivot+1;
+            int pivot_idx = partition(nums, lo, hi);
+            // 转换 idx 为 rank，这一步非常重要，不能漏掉
+            int rank = pivot_idx - lo + 1;  
+            if (rank == target) return nums[pivot_idx];
+            else if (rank > target) {
+                hi = pivot_idx - 1;
             }
-            else {
-                hi = pivot-1;
+            else if (rank < target) {
+                lo = pivot_idx + 1;
+                target = target - rank;
             }
         }
         return -1;
     }
-
-    // reursion
-    public int findKthLargest(int[] nums, int k) {
-        if (nums == null || nums.length == 0) return 0;
-        return helper(nums, 0, nums.length - 1, k);
-    }
     
-    private int helper(int[] nums, int lo, int hi, int k) {
-        // partition 
-        int q = partition(nums, lo, hi);
-        if (q - lo + 1 == k) return nums[q];
-        else if (q + 1 - lo < k) {
-            return helper(nums, q+1, hi, k - (q - lo + 1));
-        }
-        else return helper(nums, lo, q-1, k);
-    }
-    
-    private int partition(int[] nums, int lo, int hi) {
+    // 对 [lo, hi] 进行分区，返回分区点的 index
+    public int partition(int[] arr, int lo, int hi) {
         int i = lo;
+        int pivot = arr[hi];
         for (int j = lo; j < hi; j++) {
-            if (nums[j] > nums[hi]) {
-                swap(nums,i,j);
+            int cur = arr[j];
+            if (cur > pivot) {
+                swap(arr, i, j);
                 i++;
             }
         }
-        swap(nums,i,hi);
+        swap(arr, i, hi);
         return i;
     }
     
-    private void swap(int[] nums, int i, int j) {
-        int tmp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = tmp;
+    public void swap(int[] arr, int a, int b) {
+        int tmp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = tmp;
     }
 }
 

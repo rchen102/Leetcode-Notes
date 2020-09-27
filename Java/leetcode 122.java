@@ -1,3 +1,25 @@
+// 第 0 天开始
+class Solution {
+    public int maxProfit(int[] prices) {
+        if (prices == null || prices.length == 0) return 0;
+        int n = prices.length;
+        int minus_inf = Integer.MIN_VALUE;
+        
+        int[][] dp = new int[n+1][2];
+        // base cases，第 0 天
+        dp[0][0] = 0;
+        dp[0][1] = minus_inf;
+        
+        // dp 推导
+        for (int i = 1; i <= n; i++) {
+            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i-1]);
+            dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0] - prices[i-1]);
+        }
+        return dp[n][0];
+    }
+}
+
+
 // Solution: 基本 dp  T: O(n) S: O(n) (可以状态压缩至 O(1))
 class Solution {
     public int maxProfit(int[] prices) {

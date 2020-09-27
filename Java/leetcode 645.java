@@ -1,4 +1,33 @@
 class Solution {
+    public int[] findErrorNums(int[] nums) {
+        if (nums == null || nums.length == 0) return new int[0];
+        int[] res = new int[2];
+        
+        // find repeated element
+        for (int i = 0 ; i < nums.length; i++) {
+            int cur = Math.abs(nums[i]);
+            if (nums[cur-1] < 0) {
+                // find repeated
+                res[0] = cur;
+            }
+            else {
+                nums[cur-1] = -nums[cur-1];
+            }
+        }
+        
+        // find missed
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) {
+                res[1] = i + 1;
+            }
+        }
+        return res;
+        
+    }
+}
+
+
+class Solution {
     // T: O(n) S: O(1)
     public int[] findErrorNums(int[] nums) {
         if (nums == null || nums.length == 0) return new int[0];

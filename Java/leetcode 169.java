@@ -36,7 +36,7 @@ class Solution {
 }
 
 
-//Solution: HashMap  Time: O(n) Space:0(n)
+//Solution: HashMap Time: O(n) Space:0(n)
 class Solution {
     public int majorityElement(int[] nums) {
         Map<Integer, Integer> map = new HashMap<>();
