@@ -24,7 +24,6 @@ class Solution {
 }
 
 
-
 //Solution1: iterative using the definition of a BST  T: O(logn) S: O(1)
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {

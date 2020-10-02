@@ -1,22 +1,45 @@
-//Solution1: Union find T: O(n) S: O(k)
+// Solution1: Union find T: O(n) S: O(n)
+class UnionFind {
+    int parent[];
+    UnionFind(int n) {
+        parent = new int[n];
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+        }
+    }
+
+    int find(int x) {
+        while (x != parent[x]) {
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return x;
+    }
+
+    void union(int p, int q) {
+        int rootp = find(p);
+        int rootq = find(q);
+        if (rootp == rootq) return;
+        parent[rootp] = rootq;
+    }
+
+    boolean connected(int p, int q) {
+        return find(p) == find(q);
+    }
+}
+
 class Solution {
     public int[] findRedundantConnection(int[][] edges) {
-        int[] parent = new int[1001];
-        for(int i = 0; i < parent.length; i++)
-            parent[i] = i;
-        for(int[] edge : edges) {
-            int f = edge[0], t = edge[1];
-            if(find(parent, f) == find(parent, t)) return edge;
-            else
-                parent[find(parent, f)] = find(parent, t); 
+        int[] res = new int[2];
+        if (edges == null || edges.length == 0 || edges[0] == null) return res;
+        int n = edges.length;
+        UnionFind uf = new UnionFind(n+1);
+        for (int i = 0; i < n; i++) {
+            int p = edges[i][0];
+            int q = edges[i][1];
+            if (uf.connected(p, q)) res = edges[i];
+            else uf.union(p, q);
         }
-        return new int[2];
-        
-    }
-    
-    private int find(int[] parent, int x) {
-        if(x != parent[x])
-            parent[x] = find(parent, parent[x]);
-        return parent[x];
+        return res;
     }
 }
