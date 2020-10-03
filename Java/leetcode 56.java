@@ -8,27 +8,23 @@
  
  * }
  */
-//Own solution: T: O(nlogn) S: O(n)
+// Solution: T: O(nlogn) S: O(1)
 class Solution {
-    public List<Interval> merge(List<Interval> intervals) {
-        List<Interval> res = new ArrayList<>();
-        if(intervals == null || intervals.size() <= 1) return intervals;
-        
-        Collections.sort(intervals, new Comparator<Interval>() {
-            public int compare(Interval it1, Interval it2) {
-                return it1.start - it2.start;
-            }
-        });
-        res.add(intervals.get(0));
-        for(int i = 1; i < intervals.size(); i++) {
-            Interval last = res.get(res.size() - 1);
-            Interval cur = intervals.get(i);
-            if(last.end < cur.start) {
+    public int[][] merge(int[][] intervals) {
+        if (intervals == null || intervals.length == 0) return intervals;
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        List<int[]> res = new ArrayList<>();
+        res.add(intervals[0]);
+        for (int i = 1; i < intervals.length; i++) {
+            int[] last = res.get(res.size() - 1);
+            int[] cur = intervals[i];
+            if (last[1] < cur[0]) {
                 res.add(cur);
-            } else {
-                last.end = Math.max(last.end, cur.end);
+            }
+            else {
+                last[1] = Math.max(last[1], cur[1]);
             }
         }
-        return res;
+        return res.toArray(new int[0][]);
     }
 }

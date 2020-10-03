@@ -8,23 +8,42 @@
  * }
  */
 
-//Solution1: recursive T: O(n) S: O(n) worst
+//Solution1: dfs recursive T: O(n) S: O(n) worst
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> res = new LinkedList<>();
-        help(root, res);
-        return res; 
+        List<Integer> res = new ArrayList<>();
+        dfs(root, res);
+        return res;
     }
     
-    public void help(TreeNode root, List<Integer> res) {
-        if(root == null) return;
-        help(root.left, res);
-        res.add(root.val);
-        help(root.right, res);
+    public void dfs(TreeNode cur, List<Integer> res) {
+        if (cur == null) return;
+        dfs(cur.left, res);
+        res.add(cur.val);
+        dfs(cur.right, res);
     }
 }
 
-//Solution2: HashMap T: O(n) S: O(n) worst
+// Solution2: dfs iterative
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            cur = stack.pop();
+            res.add(cur.val);
+            cur = cur.right;
+        }
+        return res;
+    }
+}
+
+//Solution3: HashMap T: O(n) S: O(n) worst
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<Integer>();
@@ -58,26 +77,3 @@ class Solution {
         return list;
     }
 }
-
-//Solution3: iterative T： O(n) S: O(n) worst
-class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> list = new ArrayList<Integer>();
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        
-        TreeNode cur = root;
-        while(cur != null || !stack.empty()) 
-        {
-            while(cur != null) 
-            {
-                stack.add(cur);
-                cur = cur.left;
-            }
-            cur = stack.pop();
-            list.add(cur.val);
-            cur = cur.right;
-        }
-        return list;
-    }
-}
-

@@ -8,23 +8,23 @@
  * }
  */
 
-//Solution1: BFS iterative  T： O(n) S: O(n) (node: (n+1) / 2)
+// Solution1: BFS iterative  T： O(n) S: O(n) (node: (n+1) / 2)
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> res = new LinkedList<>();
+        if (root == null) return res;
         Queue<TreeNode> queue = new LinkedList<>();
-        if(root == null) return res;
         queue.offer(root);
-        while(!queue.isEmpty()) {
-            int len = queue.size();
-            List<Integer> tmp = new LinkedList<>();
-            for(int i = 0; i < len; i++) {
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> level = new LinkedList<>();
+            for (int i = 0; i < size; i++) {
                 TreeNode cur = queue.poll();
-                tmp.add(cur.val);
-                if(cur.left != null) queue.offer(cur.left);
-                if(cur.right != null) queue.offer(cur.right);
+                level.add(cur.val);
+                if (cur.left != null) queue.offer(cur.left);
+                if (cur.right != null) queue.offer(cur.right);
             }
-            res.add(tmp);
+            res.add(level);
         }
         return res;
     }
