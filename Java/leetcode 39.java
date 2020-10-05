@@ -6,25 +6,20 @@ class Solution {
         List<List<Integer>> res = new ArrayList<>();
         if (candidates == null || candidates.length == 0) return res;
         Arrays.sort(candidates);
-        backtrack(res, new ArrayList<>(), candidates, 0, 0, target);
+        backtrack(candidates, 0, target, new ArrayList<>(), res);
         return res;
     }
-    
-    private void backtrack(List<List<Integer>> res, List<Integer> curPath, 
-                          int[] nums, int idx, int curSum, int target) {
-        if (curSum == target) {
-            res.add(new ArrayList<>(curPath));
+
+    void backtrack(int[] nums, int start, int remain, List<Integer> cur, List<List<Integer>> res) {
+        if (remain == 0) {
+            res.add(new ArrayList(cur));
             return;
         }
-        for (int i = idx; i < nums.length; i++) {
-            if (curSum + nums[i] > target) break;
-            curSum += nums[i];
-            curPath.add(nums[i]);
-            
-            backtrack(res, curPath, nums, i, curSum, target);
-            
-            curSum -= nums[i];
-            curPath.remove(curPath.size() - 1);
+        for (int i = start; i < nums.length; i++) {
+            if (remain - nums[i] < 0) break;
+            cur.add(nums[i]);
+            backtrack(nums, i, remain - nums[i], cur, res);
+            cur.remove(cur.size() - 1);
         }
     }
 }

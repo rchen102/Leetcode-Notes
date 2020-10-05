@@ -19,3 +19,26 @@ class Solution {
         return dp;
     }
 }
+
+// O(n)
+class Solution {
+
+    HashMap<TreeNode, Integer> memo;
+
+    public int rob(TreeNode root) {
+        memo = new HashMap<>();
+        return rob_dp(root);
+    }
+
+    public int rob_dp(TreeNode root) {
+        if (root == null) return 0;
+        if (memo.containsKey(root)) return memo.get(root);
+        int do_it = root.val +
+            (root.left == null ? 0 : rob_dp(root.left.left) + rob_dp(root.left.right)) +
+            (root.right == null ? 0 : rob_dp(root.right.left) + rob_dp(root.right.right));
+        int not_do = rob_dp(root.left) + rob_dp(root.right);
+        int res = Math.max(do_it, not_do);
+        memo.put(root, res);
+        return res;
+    }
+}

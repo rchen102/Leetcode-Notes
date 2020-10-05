@@ -13,7 +13,7 @@ class Solution {
         for (int i = n - 1; i >= 0; i--) {
             for (int j = i+1; j < n; j++) {
                 if (s.charAt(i) == s.charAt(j)) {
-                    dp[i][j] = dp[i+1][j-1] + 2;
+                    dp[i][j] = dp[i+1][j-1] + 2;  // i > j 时，矩阵已经初始化为 0
                 }
                 else {
                     dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1]);

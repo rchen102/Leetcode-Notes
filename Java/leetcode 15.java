@@ -5,29 +5,31 @@ class Solution {
         if (nums == null || nums.length == 0) return res;
         Arrays.sort(nums);
         for (int i = 0; i < nums.length; i++) {
-            if (i != 0 && nums[i] == nums[i-1]) continue;
-            List<List<Integer>> tmpRes = twoSum(nums, i);
-            if (tmpRes.size() != 0) res.addAll(tmpRes);
+            if (i > 0 && nums[i] == nums[i-1]) continue;
+            List<List<Integer>> tmp = twoSum(nums, i);
+            if (tmp.size() > 0) {
+                res.addAll(tmp);
+            }
         }
         return res;
     }
-    
-    private List<List<Integer>> twoSum(int[] nums, int idx) {
+
+    public List<List<Integer>> twoSum(int[] nums, int idx) {
         int target = -nums[idx];
-        int left = idx + 1, right = nums.length - 1;
-        List<List<Integer>> tmpRes = new ArrayList<>();
-        while (left < right) {
-            int sum = nums[left] + nums[right];
-            if (sum > target) right--;
-            else if (sum < target) left++;
+        int lo = idx + 1, hi = nums.length - 1;
+        List<List<Integer>> res = new ArrayList<>(3);
+        while (lo < hi) {
+            int sum = nums[lo] + nums[hi];
+            if (sum < target) lo++;
+            else if (sum > target) hi--;
             else {
-                tmpRes.add(Arrays.asList(nums[idx], nums[left], nums[right]));
-                while (left < right && nums[left] == nums[left+1]) left++;
-                while (left < right && nums[right-1] == nums[right]) right--;
-                left++;
-                right--;
+                res.add(Arrays.asList(nums[idx], nums[lo], nums[hi]));
+                while (lo < hi && nums[lo] == nums[lo+1]) lo++;
+                while (lo < hi && nums[hi] == nums[hi-1]) hi--;
+                lo++;
+                hi--;
             }
         }
-        return tmpRes;
+        return res;
     }
 }

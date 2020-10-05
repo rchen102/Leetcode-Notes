@@ -2,6 +2,28 @@
 // T: O(n) S: O(k)
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums == null || nums.length == 0) return new int[0];
+        List<Integer> res = new ArrayList<>();
+        Deque<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < nums.length; i++) {
+            int cur = nums[i];
+            while (!queue.isEmpty() && cur >= nums[queue.peekLast()]) {
+                queue.pollLast();
+            }
+            queue.offerLast(i);
+            if (i >= k && queue.peekFirst() == i - k) queue.pollFirst();
+            if (i >= k - 1) res.add(nums[queue.peekFirst()]); 
+        }
+        int[] arr = new int[res.size()];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = res.get(i);
+        }
+        return arr;
+    }
+}
+
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
         if (nums == null || nums.length == 0) return null;
         // helper variables
         int[] res = new int[nums.length - k + 1];
